@@ -1,0 +1,32 @@
+# ICRS runtime dependencies (mirrors pyproject.toml [project.dependencies]).
+# Concrete providers default to free / local models — no paid API required.
+
+# --- Backend / API ---
+fastapi>=0.110
+uvicorn[standard]>=0.29
+pydantic>=2.6
+pydantic-settings>=2.2
+python-dotenv>=1.0
+
+# --- Persistence: PostgreSQL + pgvector (system of record) and Qdrant (vector search) ---
+asyncpg>=0.29
+sqlalchemy>=2.0
+pgvector>=0.2.5
+qdrant-client>=1.9
+
+# --- Lexical / sparse retrieval ---
+rank-bm25>=0.2.2
+
+# --- Embeddings: local open-source model bge-large-en-v1.5 (free, CPU, 1024-dim) ---
+sentence-transformers>=2.7
+
+# --- LLM providers ---
+# Groq (OpenAI-compatible) for JD decomposition + contextual reranking -> llama-3.3-70b-versatile
+groq>=0.9
+# Google Gemini (free tier) for explanation generation -> gemini-2.5-flash
+google-generativeai>=0.7
+redis>=5.0
+openai>=1.0
+
+# --- PoC UI ---
+streamlit>=1.34

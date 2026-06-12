@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "icrs"
+version = "0.1.0"
+description = "Intelligent Candidate Ranking System (ICRS) - PoC"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Proprietary" }
+authors = [{ name = "TalentLens" }]
+
+# Runtime dependencies. Concrete providers default to free / local models:
+#   - Embeddings: bge-large-en-v1.5 via sentence-transformers (local, CPU, 1024-dim)
+#   - LLM (decompose + rerank): Groq-hosted llama-3.3-70b-versatile via the groq SDK
+#   - LLM (explanation): Gemini 1.5 Pro via google-generativeai (free tier)
+dependencies = [
+    "fastapi>=0.110",
+    "uvicorn[standard]>=0.29",
+    "pydantic>=2.6",
+    "pydantic-settings>=2.2",
+    "python-dotenv>=1.0",
+    # Async DB + vector storage
+    "asyncpg>=0.29",
+    "sqlalchemy>=2.0",
+    "pgvector>=0.2.5",
+    "qdrant-client>=1.9",
+    # Lexical / sparse retrieval
+    "rank-bm25>=0.2.2",
+    # Local open-source embeddings (free, CPU-capable, 1024-dim)
+    "sentence-transformers>=2.7",
+    # LLM provider SDKs (free-tier / OpenAI-compatible) and cache
+    "groq>=0.9",
+    "google-generativeai>=0.7",
+    "redis>=5.0",
+    "openai>=1.0",
+    # PoC UI
+    "streamlit>=1.34",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "hypothesis>=6.100",
+    "ruff>=0.4",
+]
+
+[tool.setuptools.packages.find]
+include = ["icrs*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+addopts = "-ra"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"

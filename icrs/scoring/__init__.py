@@ -1,0 +1,153 @@
+"""Hybrid scoring engine for ICRS.
+
+Hard filters, dense/sparse similarity, composite fusion, and the LLM reranker
+are implemented in later tasks. The weight-profile registry and selector
+(Task 9.1) live here and are re-exported for convenience.
+"""
+
+from icrs.scoring.composite import (
+    CompositeMixin,
+    SignalBundle,
+    build_signal_bundle,
+    composite,
+)
+from icrs.scoring.confidence import (
+    COVERAGE_WEIGHT,
+    MARGIN_WEIGHT,
+    ConfidenceMixin,
+    compute_confidence,
+    compute_confidence_for,
+    neighbor_scores_for,
+    normalize_margin,
+    score_margin_to_neighbors,
+    signal_coverage,
+)
+from icrs.scoring.fairness import (
+    PROTECTED_PROXY_FIELDS,
+    FullySparseScore,
+    apply_neutral_prior_for_missing_tiers,
+    fully_sparse_signal_availability,
+    is_fully_sparse,
+    is_protected_proxy_field,
+    is_proxy_invariant,
+    neutral_prior_signal_bundle,
+    score_fully_sparse_candidate,
+    strip_protected_proxies,
+)
+from icrs.scoring.hard_filter import (
+    FilterResult,
+    HardFilterMixin,
+    HybridScoringEngine,
+    MatchPredicate,
+    default_disqualifier_match,
+    hard_filter,
+)
+from icrs.scoring.similarity import (
+    DENSE_WEIGHT,
+    SPARSE_WEIGHT,
+    SemanticFitMixin,
+    candidate_text_corpus,
+    cosine_similarity,
+    dense_retrieve,
+    dense_similarity,
+    requirement_query_terms,
+    semantic_fit,
+    semantic_fit_from_inputs,
+    sparse_similarity,
+)
+from icrs.scoring.subscores import (
+    NEUTRAL_PRIOR,
+    MustHaveMatch,
+    RequiredSubScore,
+    SubScoreMixin,
+    SubScoreUnavailable,
+    SubScoreUnavailableIndication,
+    behavioral_signal_score,
+    career_trajectory_score,
+    default_must_have_match,
+    depth_breadth_alignment,
+    detect_soft_flags,
+    disqualifying_flag_penalty,
+    hard_filter_pass_score,
+    map_arc_to_score,
+    seniority_alignment,
+)
+from icrs.scoring.weights import (
+    DEFAULT_WEIGHT_PROFILE,
+    WEIGHT_PROFILES,
+    WEIGHT_SUM_TOLERANCE,
+    WeightProfile,
+    WeightProfileSelection,
+    get_weight_profile,
+    select_weight_profile,
+)
+
+__all__ = [
+    "DEFAULT_WEIGHT_PROFILE",
+    "WEIGHT_PROFILES",
+    "WEIGHT_SUM_TOLERANCE",
+    "WeightProfile",
+    "WeightProfileSelection",
+    "get_weight_profile",
+    "select_weight_profile",
+    "FilterResult",
+    "MatchPredicate",
+    "default_disqualifier_match",
+    "hard_filter",
+    "HardFilterMixin",
+    "HybridScoringEngine",
+    # Dense / sparse similarity and the semantic-fit blend (Task 10.1).
+    "DENSE_WEIGHT",
+    "SPARSE_WEIGHT",
+    "cosine_similarity",
+    "dense_similarity",
+    "sparse_similarity",
+    "semantic_fit",
+    "semantic_fit_from_inputs",
+    "candidate_text_corpus",
+    "requirement_query_terms",
+    "dense_retrieve",
+    "SemanticFitMixin",
+    # Trajectory / behavioral / hard-filter-pass / penalty sub-scores (Task 10.2).
+    "NEUTRAL_PRIOR",
+    "RequiredSubScore",
+    "SubScoreUnavailable",
+    "SubScoreUnavailableIndication",
+    "map_arc_to_score",
+    "seniority_alignment",
+    "depth_breadth_alignment",
+    "career_trajectory_score",
+    "behavioral_signal_score",
+    "hard_filter_pass_score",
+    "default_must_have_match",
+    "detect_soft_flags",
+    "disqualifying_flag_penalty",
+    "MustHaveMatch",
+    "SubScoreMixin",
+    # Weighted composite fusion with clamping (Task 11.1).
+    "SignalBundle",
+    "build_signal_bundle",
+    "composite",
+    "CompositeMixin",
+    # Confidence computation (Task 15.1).
+    "COVERAGE_WEIGHT",
+    "MARGIN_WEIGHT",
+    "signal_coverage",
+    "normalize_margin",
+    "score_margin_to_neighbors",
+    "neighbor_scores_for",
+    "compute_confidence",
+    "compute_confidence_for",
+    "ConfidenceMixin",
+    # Fairness and missing-signal guarantees (Task 15.2).
+    "PROTECTED_PROXY_FIELDS",
+    "is_protected_proxy_field",
+    "strip_protected_proxies",
+    "apply_neutral_prior_for_missing_tiers",
+    "is_proxy_invariant",
+    "fully_sparse_signal_availability",
+    "is_fully_sparse",
+    "neutral_prior_signal_bundle",
+    "FullySparseScore",
+    "score_fully_sparse_candidate",
+]

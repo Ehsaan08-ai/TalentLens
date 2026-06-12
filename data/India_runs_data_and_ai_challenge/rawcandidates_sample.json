@@ -1,0 +1,1243 @@
+[
+  {
+    "structured_fields": {
+      "roles": [
+        {
+          "title": "Backend Engineer",
+          "company": "Mindtree",
+          "start": "2024-03-08"
+        },
+        {
+          "title": "Analytics Engineer",
+          "company": "Dunder Mifflin",
+          "start": "2019-07-03",
+          "end": "2024-01-08"
+        }
+      ],
+      "education": [
+        {
+          "institution": "Lovely Professional University",
+          "degree": "B.E.",
+          "field_of_study": "Computer Science",
+          "start": 2017,
+          "end": 2020
+        }
+      ],
+      "skills": [
+        "Tailwind",
+        "NLP",
+        "Image Classification",
+        "Fine-tuning LLMs",
+        "Weights & Biases",
+        "Speech Recognition",
+        "Photoshop",
+        "TTS",
+        "LoRA",
+        "Apache Beam",
+        "AWS",
+        "Flask",
+        "BentoML",
+        "Milvus",
+        "GANs",
+        "Statistical Modeling",
+        "GCP"
+      ],
+      "certifications": [],
+      "industry": "IT Services",
+      "years_of_experience": 6.9,
+      "source_candidate_id": "CAND_0000001"
+    },
+    "free_text": "Backend Engineer | SQL, Spark, Cloud\n\nSoftware / data professional with 6.9 years of experience building data pipelines, backend systems, and analytics infrastructure. I'm a backend/data hybrid \u2014 Spark, Airflow, SQL warehouses are home territory; I'm building competence on the ML side. My toolkit is solid on the data engineering side \u2014 Python, SQL, Spark, Airflow, warehouse design \u2014 and I've completed a couple of self-directed ML projects (Kaggle competitions, side projects fine-tuning small models). Interested in transitioning toward more AI/ML-focused work, ideally at a company where I can leverage my existing data-infra skills while learning modern ML practice.\n\nBackend Engineer / Mindtree: Implemented streaming data pipelines on Kafka and Spark Streaming for a real-time user-activity processing platform. Designed the schema-registry integration, the watermark/state management approach, and the deduplication logic for late-arriving events. Worked closely with the data science team to make sure feature pipelines aligned with what their models needed. Most of my career has been data engineering, with some adjacent ML exposure.\n\nAnalytics Engineer / Dunder Mifflin: Built and maintained data pipelines on Apache Airflow processing ~500GB of daily transactional data across 12 source systems. Worked extensively with Spark (PySpark) for batch processing and dbt for the transformation/modeling layer in our Snowflake warehouse. Owned the on-call rotation for data quality issues \u2014 wrote most of the data quality checks that detect schema drift and unusual volume changes. The pipeline supports the analytics team and a few internal ML models.",
+    "external_handles": {}
+  },
+  {
+    "structured_fields": {
+      "roles": [
+        {
+          "title": "Operations Manager",
+          "company": "Wipro",
+          "start": "2022-11-14"
+        },
+        {
+          "title": "Operations Manager",
+          "company": "Wipro",
+          "start": "2021-09-13",
+          "end": "2022-11-07"
+        },
+        {
+          "title": "Marketing Manager",
+          "company": "Acme Corp",
+          "start": "2017-03-08",
+          "end": "2021-08-14"
+        },
+        {
+          "title": "Marketing Manager",
+          "company": "Dunder Mifflin",
+          "start": "2014-01-23",
+          "end": "2017-03-08"
+        }
+      ],
+      "education": [
+        {
+          "institution": "Local Engineering College",
+          "degree": "B.Sc",
+          "field_of_study": "Mathematics",
+          "start": 2007,
+          "end": 2011
+        }
+      ],
+      "skills": [
+        "Project Management",
+        "React",
+        "Photoshop",
+        "TypeScript",
+        "Marketing",
+        "Kafka",
+        "JavaScript",
+        "Feature Engineering",
+        "GCP"
+      ],
+      "certifications": [],
+      "industry": "IT Services",
+      "years_of_experience": 12.5,
+      "source_candidate_id": "CAND_0000002"
+    },
+    "free_text": "Operations Manager | 12.5+ yrs experience\n\nProfessional with 12.5+ years of experience. My professional background is in marketing manager \u2014 I've built and led teams, owned KPIs, and driven business outcomes in this domain. Lately I've been curious about how AI tools could augment my work \u2014 I've experimented with ChatGPT and a few other tools for productivity and content creation, and I think the space is exciting. Open to roles where I can apply my domain expertise alongside emerging AI capabilities.\n\nOperations Manager / Wipro: Customer support team lead at a SaaS product. Managed a team of 8 support agents handling tier-1 and tier-2 tickets; owned the escalation process to engineering and the customer-feedback loop to product. Built out the support knowledge base and the agent training program. Strong on the people-management side and the process side; lighter on technical depth beyond product expertise.\n\nOperations Manager / Wipro: Mechanical engineering design role at a hardware-product company. Led the design of two product subsystems through full lifecycle: concept, DFM/DFMA review, prototype, production tooling. Comfortable with CAD (SolidWorks, Creo), FEA (ANSYS), and the typical hardware-development cadence. Worked closely with manufacturing partners on production scale-up.\n\nMarketing Manager / Acme Corp: Content writing and SEO strategy for a tech-focused publication. Wrote longform articles on developer tools, cloud platforms, and AI/ML topics \u2014 including some that ranked on the first page of search for high-competition keywords. Managed a freelance writer pool and the editorial calendar. Recent work has been on AI-assisted content production, using LLM tools for research, drafting, and editing while maintaining editorial quality.\n\nMarketing Manager / Dunder Mifflin: Brand design and creative direction at a consumer-products company. Owned brand identity (logo, visual system, typography), packaging design, and digital creative across web and social. Led the recent rebrand and managed a small external agency for production work. Comfortable across the Adobe suite, Figma, and the production side of brand and packaging design.",
+    "external_handles": {}
+  },
+  {
+    "structured_fields": {
+      "roles": [
+        {
+          "title": "Customer Support",
+          "company": "TCS",
+          "start": "2025-05-02"
+        }
+      ],
+      "education": [
+        {
+          "institution": "Local Engineering College",
+          "degree": "M.E.",
+          "field_of_study": "Chemical Engineering",
+          "start": 2005,
+          "end": 2010
+        },
+        {
+          "institution": "Chandigarh University",
+          "degree": "M.Sc",
+          "field_of_study": "Information Technology",
+          "start": 2017,
+          "end": 2021
+        }
+      ],
+      "skills": [
+        "Angular",
+        "SEO",
+        "Excel",
+        "Accounting",
+        "Kubernetes",
+        "Databricks"
+      ],
+      "certifications": [],
+      "industry": "IT Services",
+      "years_of_experience": 1.1,
+      "source_candidate_id": "CAND_0000003"
+    },
+    "free_text": "Customer Support | 1.1+ yrs experience\n\nProfessional with 1.1+ years of experience. I've spent my career in marketing manager roles, mostly focused on driving outcomes through process, people, and customer relationships. Lately I've been curious about how AI tools could augment my work \u2014 I've experimented with ChatGPT and a few other tools for productivity and content creation, and I think the space is exciting. Open to roles where I can apply my domain expertise alongside emerging AI capabilities.\n\nCustomer Support / TCS: Business analyst at a consulting firm, working primarily with retail and CPG clients. Conducted business diagnostics, process re-engineering work, and digital transformation strategy projects. Strong on stakeholder management, structured problem-solving, and the typical consulting toolkit (slide-craft, Excel modeling, executive communication). Recent project work involved AI-strategy advisory but my own technical depth in AI is limited.",
+    "external_handles": {}
+  },
+  {
+    "structured_fields": {
+      "roles": [
+        {
+          "title": "Marketing Manager",
+          "company": "Dunder Mifflin",
+          "start": "2025-04-02"
+        },
+        {
+          "title": "Operations Manager",
+          "company": "Infosys",
+          "start": "2023-07-28",
+          "end": "2025-03-19"
+        },
+        {
+          "title": "Business Analyst",
+          "company": "Globex Inc",
+          "start": "2022-08-02",
+          "end": "2023-05-29"
+        }
+      ],
+      "education": [
+        {
+          "institution": "Local Engineering College",
+          "degree": "B.Tech",
+          "field_of_study": "Machine Learning",
+          "start": 2015,
+          "end": 2019
+        },
+        {
+          "institution": "Lovely Professional University",
+          "degree": "Ph.D",
+          "field_of_study": "Electronics",
+          "start": 2013,
+          "end": 2016
+        }
+      ],
+      "skills": [
+        "Node.js",
+        "Content Writing",
+        "Redux",
+        "Airflow",
+        "GraphQL",
+        "Object Detection",
+        "Webpack",
+        "Six Sigma",
+        "SAP",
+        "JavaScript"
+      ],
+      "certifications": [
+        "AWS Certified Cloud Practitioner",
+        "Scrum Master Certified"
+      ],
+      "industry": "Paper Products",
+      "years_of_experience": 3.8,
+      "source_candidate_id": "CAND_0000004"
+    },
+    "free_text": "Marketing Manager | Driving business outcomes\n\nProfessional with 3.8+ years of experience. My professional background is in marketing manager \u2014 I've built and led teams, owned KPIs, and driven business outcomes in this domain. Lately I've been curious about how AI tools could augment my work \u2014 I've experimented with ChatGPT and a few other tools for productivity and content creation, and I think the space is exciting. Open to roles where I can apply my domain expertise alongside emerging AI capabilities.\n\nMarketing Manager / Dunder Mifflin: Mechanical engineering design role at a hardware-product company. Led the design of two product subsystems through full lifecycle: concept, DFM/DFMA review, prototype, production tooling. Comfortable with CAD (SolidWorks, Creo), FEA (ANSYS), and the typical hardware-development cadence. Worked closely with manufacturing partners on production scale-up.\n\nOperations Manager / Infosys: Content writing and SEO strategy for a tech-focused publication. Wrote longform articles on developer tools, cloud platforms, and AI/ML topics \u2014 including some that ranked on the first page of search for high-competition keywords. Managed a freelance writer pool and the editorial calendar. Recent work has been on AI-assisted content production, using LLM tools for research, drafting, and editing while maintaining editorial quality.\n\nBusiness Analyst / Globex Inc: Operations management role at a logistics company. Owned daily fulfillment operations across 3 warehouses, managing a team of 80 across receiving, picking, packing, and outbound. Built and tracked the operational KPIs (on-time fulfillment, accuracy, cost per order) and led the continuous improvement initiatives that drove a 22% productivity gain over 18 months.",
+    "external_handles": {}
+  },
+  {
+    "structured_fields": {
+      "roles": [
+        {
+          "title": "Accountant",
+          "company": "Stark Industries",
+          "start": "2022-02-17"
+        },
+        {
+          "title": "HR Manager",
+          "company": "Wipro",
+          "start": "2018-05-25",
+          "end": "2022-02-03"
+        },
+        {
+          "title": "HR Manager",
+          "company": "Initech",
+          "start": "2016-06-04",
+          "end": "2018-05-25"
+        },
+        {
+          "title": "Accountant",
+          "company": "TCS",
+          "start": "2015-09-08",
+          "end": "2016-06-04"
+        }
+      ],
+      "education": [
+        {
+          "institution": "Chandigarh University",
+          "degree": "M.Sc",
+          "field_of_study": "Information Technology",
+          "start": 2007,
+          "end": 2012
+        }
+      ],
+      "skills": [
+        "SQL",
+        "PowerPoint",
+        "Photoshop",
+        "Tailwind",
+        "Apache Flink",
+        "Image Classification"
+      ],
+      "certifications": [],
+      "industry": "Manufacturing",
+      "years_of_experience": 11.0,
+      "source_candidate_id": "CAND_0000005"
+    },
+    "free_text": "Accountant | Helping teams scale\n\nProfessional with 11.0+ years of experience. I've spent my career in marketing manager roles, mostly focused on driving outcomes through process, people, and customer relationships. Lately I've been curious about how AI tools could augment my work \u2014 I've experimented with ChatGPT and a few other tools for productivity and content creation, and I think the space is exciting. Open to roles where I can apply my domain expertise alongside emerging AI capabilities.\n\nAccountant / Stark Industries: Business analyst at a consulting firm, working primarily with retail and CPG clients. Conducted business diagnostics, process re-engineering work, and digital transformation strategy projects. Strong on stakeholder management, structured problem-solving, and the typical consulting toolkit (slide-craft, Excel modeling, executive communication). Recent project work involved AI-strategy advisory but my own technical depth in AI is limited.\n\nHR Manager / Wipro: Senior accounting role at a mid-sized company \u2014 month-end close, financial reporting, statutory compliance (GAAP / Ind-AS), and tax filings. Owned the GL, fixed-asset register, and the audit-readiness function. Managed a team of 3 staff accountants. Built strong process discipline around the close cycle, reducing close time from 12 days to 7 over the last two years.\n\nHR Manager / Initech: Business analyst at a consulting firm, working primarily with retail and CPG clients. Conducted business diagnostics, process re-engineering work, and digital transformation strategy projects. Strong on stakeholder management, structured problem-solving, and the typical consulting toolkit (slide-craft, Excel modeling, executive communication). Recent project work involved AI-strategy advisory but my own technical depth in AI is limited.\n\nAccountant / TCS: Customer support team lead at a SaaS product. Managed a team of 8 support agents handling tier-1 and tier-2 tickets; owned the escalation process to engineering and the customer-feedback loop to product. Built out the support knowledge base and the agent training program. Strong on the people-management side and the process side; lighter on technical depth beyond product expertise.",
+    "external_handles": {}
+  },
+  {
+    "structured_fields": {
+      "roles": [
+        {
+          "title": "Business Analyst",
+          "company": "Wayne Enterprises",
+          "start": "2023-09-10"
+        },
+        {
+          "title": "Mechanical Engineer",
+          "company": "Pied Piper",
+          "start": "2020-07-27",
+          "end": "2023-09-10"
+        }
+      ],
+      "education": [
+        {
+          "institution": "Lovely Professional University",
+          "degree": "B.Sc",
+          "field_of_study": "Artificial Intelligence",
+          "start": 2005,
+          "end": 2008
+        }
+      ],
+      "skills": [
+        "Content Writing",
+        "SEO",
+        "Redux",
+        "SQL",
+        "Sales",
+        "gRPC",
+        "Django",
+        "Terraform"
+      ],
+      "certifications": [],
+      "industry": "Conglomerate",
+      "years_of_experience": 6.0,
+      "source_candidate_id": "CAND_0000006"
+    },
+    "free_text": "Business Analyst | 6.0+ yrs experience\n\nProfessional with 6.0+ years of experience. I've spent my career in marketing manager roles, mostly focused on driving outcomes through process, people, and customer relationships. Lately I've been curious about how AI tools could augment my work \u2014 I've experimented with ChatGPT and a few other tools for productivity and content creation, and I think the space is exciting. Open to roles where I can apply my domain expertise alongside emerging AI capabilities.\n\nBusiness Analyst / Wayne Enterprises: Senior accounting role at a mid-sized company \u2014 month-end close, financial reporting, statutory compliance (GAAP / Ind-AS), and tax filings. Owned the GL, fixed-asset register, and the audit-readiness function. Managed a team of 3 staff accountants. Built strong process discipline around the close cycle, reducing close time from 12 days to 7 over the last two years.\n\nMechanical Engineer / Pied Piper: Business analyst at a consulting firm, working primarily with retail and CPG clients. Conducted business diagnostics, process re-engineering work, and digital transformation strategy projects. Strong on stakeholder management, structured problem-solving, and the typical consulting toolkit (slide-craft, Excel modeling, executive communication). Recent project work involved AI-strategy advisory but my own technical depth in AI is limited.",
+    "external_handles": {}
+  },
+  {
+    "structured_fields": {
+      "roles": [
+        {
+          "title": "Civil Engineer",
+          "company": "Wipro",
+          "start": "2023-04-13"
+        },
+        {
+          "title": "Mechanical Engineer",
+          "company": "Initech",
+          "start": "2021-01-16",
+          "end": "2023-04-06"
+        }
+      ],
+      "education": [
+        {
+          "institution": "SRM University",
+          "degree": "M.E.",
+          "field_of_study": "Data Science",
+          "start": 2009,
+          "end": 2013
+        }
+      ],
+      "skills": [
+        "Content Writing",
+        "MongoDB",
+        "Sales",
+        "Spark",
+        "Scrum",
+        "Apache Beam",
+        "Illustrator"
+      ],
+      "certifications": [],
+      "industry": "IT Services",
+      "years_of_experience": 5.5,
+      "source_candidate_id": "CAND_0000007"
+    },
+    "free_text": "Civil Engineer | 5.5+ yrs experience\n\nProfessional with 5.5+ years of experience. My professional background is in marketing manager \u2014 I've built and led teams, owned KPIs, and driven business outcomes in this domain. Lately I've been curious about how AI tools could augment my work \u2014 I've experimented with ChatGPT and a few other tools for productivity and content creation, and I think the space is exciting. Open to roles where I can apply my domain expertise alongside emerging AI capabilities.\n\nCivil Engineer / Wipro: Brand design and creative direction at a consumer-products company. Owned brand identity (logo, visual system, typography), packaging design, and digital creative across web and social. Led the recent rebrand and managed a small external agency for production work. Comfortable across the Adobe suite, Figma, and the production side of brand and packaging design.\n\nMechanical Engineer / Initech: Customer support team lead at a SaaS product. Managed a team of 8 support agents handling tier-1 and tier-2 tickets; owned the escalation process to engineering and the customer-feedback loop to product. Built out the support knowledge base and the agent training program. Strong on the people-management side and the process side; lighter on technical depth beyond product expertise.",
+    "external_handles": {}
+  },
+  {
+    "structured_fields": {
+      "roles": [
+        {
+          "title": "Operations Manager",
+          "company": "Wipro",
+          "start": "2022-11-14"
+        }
+      ],
+      "education": [
+        {
+          "institution": "Anna University",
+          "degree": "B.Tech",
+          "field_of_study": "Data Science",
+          "start": 2008,
+          "end": 2012
+        },
+        {
+          "institution": "SRM University",
+          "degree": "M.Sc",
+          "field_of_study": "Computer Engineering",
+          "start": 2009,
+          "end": 2013
+        }
+      ],
+      "skills": [
+        "Java",
+        "BigQuery",
+        "Spark",
+        "Accounting",
+        "Kubernetes",
+        "TypeScript",
+        "Rust",
+        "HTML"
+      ],
+      "certifications": [
+        "Six Sigma Green Belt"
+      ],
+      "industry": "IT Services",
+      "years_of_experience": 3.6,
+      "source_candidate_id": "CAND_0000008"
+    },
+    "free_text": "Operations Manager | 3.6+ yrs experience\n\nProfessional with 3.6+ years of experience. I've spent my career in marketing manager roles, mostly focused on driving outcomes through process, people, and customer relationships. Lately I've been curious about how AI tools could augment my work \u2014 I've experimented with ChatGPT and a few other tools for productivity and content creation, and I think the space is exciting. Open to roles where I can apply my domain expertise alongside emerging AI capabilities.\n\nOperations Manager / Wipro: Marketing leadership role at a B2B SaaS company. Owned the demand-generation function \u2014 content marketing, paid acquisition, SEO, email nurture. Built and managed a team of 5 across content, performance marketing, and marketing operations. Worked closely with sales on lead-quality definitions and the SDR-handoff process. Recent focus has been on account-based marketing for our enterprise segment.",
+    "external_handles": {}
+  },
+  {
+    "structured_fields": {
+      "roles": [
+        {
+          "title": "Mechanical Engineer",
+          "company": "Dunder Mifflin",
+          "start": "2022-10-15"
+        },
+        {
+          "title": "Content Writer",
+          "company": "Wipro",
+          "start": "2021-02-22",
+          "end": "2022-10-15"
+        },
+        {
+          "title": "Customer Support",
+          "company": "Stark Industries",
+          "start": "2017-02-13",
+          "end": "2021-02-22"
+        },
+        {
+          "title": "Project Manager",
+          "company": "Acme Corp",
+          "start": "2015-08-23",
+          "end": "2017-02-13"
+        }
+      ],
+      "education": [
+        {
+          "institution": "KIIT University",
+          "degree": "B.Tech",
+          "field_of_study": "Electronics",
+          "start": 2009,
+          "end": 2014
+        }
+      ],
+      "skills": [
+        "Snowflake",
+        "gRPC",
+        "JavaScript",
+        "OpenCV",
+        "Go",
+        "PowerPoint"
+      ],
+      "certifications": [],
+      "industry": "Paper Products",
+      "years_of_experience": 11.0,
+      "source_candidate_id": "CAND_0000009"
+    },
+    "free_text": "Mechanical Engineer | Driving business outcomes\n\nProfessional with 11.0+ years of experience. My professional background is in marketing manager \u2014 I've built and led teams, owned KPIs, and driven business outcomes in this domain. Lately I've been curious about how AI tools could augment my work \u2014 I've experimented with ChatGPT and a few other tools for productivity and content creation, and I think the space is exciting. Open to roles where I can apply my domain expertise alongside emerging AI capabilities.\n\nMechanical Engineer / Dunder Mifflin: Business analyst at a consulting firm, working primarily with retail and CPG clients. Conducted business diagnostics, process re-engineering work, and digital transformation strategy projects. Strong on stakeholder management, structured problem-solving, and the typical consulting toolkit (slide-craft, Excel modeling, executive communication). Recent project work involved AI-strategy advisory but my own technical depth in AI is limited.\n\nContent Writer / Wipro: Marketing leadership role at a B2B SaaS company. Owned the demand-generation function \u2014 content marketing, paid acquisition, SEO, email nurture. Built and managed a team of 5 across content, performance marketing, and marketing operations. Worked closely with sales on lead-quality definitions and the SDR-handoff process. Recent focus has been on account-based marketing for our enterprise segment.\n\nCustomer Support / Stark Industries: Mechanical engineering design role at a hardware-product company. Led the design of two product subsystems through full lifecycle: concept, DFM/DFMA review, prototype, production tooling. Comfortable with CAD (SolidWorks, Creo), FEA (ANSYS), and the typical hardware-development cadence. Worked closely with manufacturing partners on production scale-up.\n\nProject Manager / Acme Corp: Enterprise sales of cloud software solutions into the mid-market segment. Carried a $1.8M ARR quota and consistently delivered against it across the last three years. Owned the full sales cycle: prospecting, discovery, technical evaluation (with SE support), commercial negotiation, and close. Strong on consultative selling for technical buyers; comfortable engaging with both engineering and finance stakeholders.",
+    "external_handles": {}
+  },
+  {
+    "structured_fields": {
+      "roles": [
+        {
+          "title": "Data Engineer",
+          "company": "Ola",
+          "start": "2021-11-19"
+        }
+      ],
+      "education": [
+        {
+          "institution": "Generic State University",
+          "degree": "B.E.",
+          "field_of_study": "Mathematics",
+          "start": 2007,
+          "end": 2011
+        },
+        {
+          "institution": "Local Engineering College",
+          "degree": "M.S.",
+          "field_of_study": "Computer Engineering",
+          "start": 2013,
+          "end": 2018
+        }
+      ],
+      "skills": [
+        "GCP",
+        "Spring Boot",
+        "Kubeflow",
+        "Java",
+        "GANs",
+        "Figma",
+        "Elasticsearch",
+        "OpenCV",
+        "CNN",
+        "Azure",
+        "Prompt Engineering",
+        "Object Detection",
+        "MLOps",
+        "Python",
+        "BM25",
+        "Weights & Biases",
+        "Sales"
+      ],
+      "certifications": [],
+      "industry": "Transportation",
+      "years_of_experience": 4.6,
+      "source_candidate_id": "CAND_0000010"
+    },
+    "free_text": "Data Engineer | Data pipelines & analytics\n\nSoftware / data professional with 4.6 years of experience building data pipelines, backend systems, and analytics infrastructure. Most of my work has been data pipelines and analytics infrastructure; I've shipped a couple of small ML features but it's not the core of my day. My toolkit is solid on the data engineering side \u2014 Python, SQL, Spark, Airflow, warehouse design \u2014 and I've completed a couple of self-directed ML projects (Kaggle competitions, side projects fine-tuning small models). Interested in transitioning toward more AI/ML-focused work, ideally at a company where I can leverage my existing data-infra skills while learning modern ML practice.\n\nData Engineer / Ola: Mixed data science and analytics-engineering role at a marketing-analytics startup. Spent maybe 30% of my time on lightweight ML (clustering, classification, churn prediction in sklearn/XGBoost) and 70% on data infrastructure and dashboards. Comfortable with the modeling work but I wouldn't call myself an ML specialist. Built our experimentation framework that supports the product team's A/B tests.",
+    "external_handles": {}
+  },
+  {
+    "structured_fields": {
+      "roles": [
+        {
+          "title": "QA Engineer",
+          "company": "Pied Piper",
+          "start": "2025-05-02"
+        },
+        {
+          "title": "QA Engineer",
+          "company": "Hooli",
+          "start": "2024-06-06",
+          "end": "2025-04-02"
+        }
+      ],
+      "education": [
+        {
+          "institution": "Chandigarh University",
+          "degree": "B.Tech",
+          "field_of_study": "Data Science",
+          "start": 2014,
+          "end": 2019
+        },
+        {
+          "institution": "Anna University",
+          "degree": "B.Sc",
+          "field_of_study": "Information Technology",
+          "start": 2015,
+          "end": 2020
+        }
+      ],
+      "skills": [
+        "Recommendation Systems",
+        "Scrum",
+        "FastAPI",
+        "Hugging Face Transformers",
+        "AWS",
+        "Snowflake",
+        "Spring Boot",
+        "PostgreSQL",
+        "Kubeflow",
+        "Azure"
+      ],
+      "certifications": [
+        "AWS Certified Cloud Practitioner",
+        "Six Sigma Green Belt"
+      ],
+      "industry": "Software",
+      "years_of_experience": 2.0,
+      "source_candidate_id": "CAND_0000011"
+    },
+    "free_text": "QA Engineer | Cloud & DevOps\n\nSoftware engineer with 2.0 years of experience across web, backend, and cloud systems. Strong fundamentals in software development and system design. Most of my work is conventional backend engineering \u2014 APIs, databases, queues, deployments. I've been keeping up with AI/ML at a self-learner level \u2014 taken some online courses, played with the OpenAI and Anthropic APIs, built a small RAG side project \u2014 but I haven't done it in a professional capacity yet. Open to roles where I can either deepen my software engineering work or, if the team is open to it, start contributing to ML-adjacent systems.\n\nQA Engineer / Pied Piper: Android mobile development using Java and (more recently) Kotlin at a consumer-app company. Built and maintained multiple production features including the main shopping flow, push notification system, and the offline-first sync layer. Comfortable with the Android framework, Jetpack components, and the typical patterns (MVVM, Hilt, Coroutines). My career has been entirely on mobile so far; interested in expanding into broader backend or platform engineering.\n\nQA Engineer / Hooli: Test automation and QA engineering for a fintech product. Built and maintained the end-to-end test suite using Selenium and pytest, plus the load-testing setup using Locust. Worked closely with developers on testability patterns and with product on acceptance criteria. Recent work has been on shifting test responsibility into the dev team \u2014 moving from QA-as-gate to QA-as-coach. Career has been entirely in QA/test engineering.",
+    "external_handles": {}
+  },
+  {
+    "structured_fields": {
+      "roles": [
+        {
+          "title": "Operations Manager",
+          "company": "Stark Industries",
+          "start": "2025-05-02"
+        }
+      ],
+      "education": [
+        {
+          "institution": "Symbiosis International",
+          "degree": "B.Sc",
+          "field_of_study": "Physics",
+          "start": 2018,
+          "end": 2022
+        },
+        {
+          "institution": "Christ University",
+          "degree": "B.Sc",
+          "field_of_study": "Mechanical Engineering",
+          "start": 2011,
+          "end": 2015
+        }
+      ],
+      "skills": [
+        "Azure",
+        "Airflow",
+        "AWS",
+        "gRPC",
+        "Vue.js",
+        "dbt",
+        "Agile",
+        "PowerPoint",
+        "Content Writing",
+        "Project Management"
+      ],
+      "certifications": [],
+      "industry": "Manufacturing",
+      "years_of_experience": 1.1,
+      "source_candidate_id": "CAND_0000012"
+    },
+    "free_text": "Operations Manager | Driving business outcomes\n\nProfessional with 1.1+ years of experience. My professional background is in marketing manager \u2014 I've built and led teams, owned KPIs, and driven business outcomes in this domain. Lately I've been curious about how AI tools could augment my work \u2014 I've experimented with ChatGPT and a few other tools for productivity and content creation, and I think the space is exciting. Open to roles where I can apply my domain expertise alongside emerging AI capabilities.\n\nOperations Manager / Stark Industries: Senior accounting role at a mid-sized company \u2014 month-end close, financial reporting, statutory compliance (GAAP / Ind-AS), and tax filings. Owned the GL, fixed-asset register, and the audit-readiness function. Managed a team of 3 staff accountants. Built strong process discipline around the close cycle, reducing close time from 12 days to 7 over the last two years.",
+    "external_handles": {}
+  },
+  {
+    "structured_fields": {
+      "roles": [
+        {
+          "title": "Civil Engineer",
+          "company": "Globex Inc",
+          "start": "2025-05-02"
+        }
+      ],
+      "education": [
+        {
+          "institution": "Delhi College of Engineering",
+          "degree": "B.E.",
+          "field_of_study": "Information Technology",
+          "start": 2019,
+          "end": 2022
+        },
+        {
+          "institution": "Amity University",
+          "degree": "Ph.D",
+          "field_of_study": "Information Technology",
+          "start": 2008,
+          "end": 2013
+        }
+      ],
+      "skills": [
+        "React",
+        "Redux",
+        "Vue.js",
+        "Six Sigma",
+        "Spring Boot",
+        "Spark",
+        "Data Pipelines",
+        "GCP",
+        "Flask",
+        "Snowflake"
+      ],
+      "certifications": [],
+      "industry": "Manufacturing",
+      "years_of_experience": 1.1,
+      "source_candidate_id": "CAND_0000013"
+    },
+    "free_text": "Civil Engineer | Driving business outcomes\n\nProfessional with 1.1+ years of experience. I'm a marketing manager with substantial experience in cross-functional collaboration, stakeholder management, and execution. Lately I've been curious about how AI tools could augment my work \u2014 I've experimented with ChatGPT and a few other tools for productivity and content creation, and I think the space is exciting. Open to roles where I can apply my domain expertise alongside emerging AI capabilities.\n\nCivil Engineer / Globex Inc: Customer support team lead at a SaaS product. Managed a team of 8 support agents handling tier-1 and tier-2 tickets; owned the escalation process to engineering and the customer-feedback loop to product. Built out the support knowledge base and the agent training program. Strong on the people-management side and the process side; lighter on technical depth beyond product expertise.",
+    "external_handles": {}
+  },
+  {
+    "structured_fields": {
+      "roles": [
+        {
+          "title": "Frontend Engineer",
+          "company": "Zomato",
+          "start": "2023-09-10"
+        },
+        {
+          "title": "Software Engineer",
+          "company": "Dunder Mifflin",
+          "start": "2019-10-01",
+          "end": "2023-09-10"
+        },
+        {
+          "title": "Java Developer",
+          "company": "Acme Corp",
+          "start": "2018-03-03",
+          "end": "2019-09-24"
+        }
+      ],
+      "education": [
+        {
+          "institution": "Lovely Professional University",
+          "degree": "B.E.",
+          "field_of_study": "Statistics",
+          "start": 2012,
+          "end": 2015
+        }
+      ],
+      "skills": [
+        "FAISS",
+        "BigQuery",
+        "React",
+        "OpenSearch",
+        "OpenCV",
+        "YOLO",
+        "SAP",
+        "SEO",
+        "REST APIs",
+        "GANs",
+        "dbt",
+        "Photoshop",
+        "Tailwind"
+      ],
+      "certifications": [],
+      "industry": "Food Delivery",
+      "years_of_experience": 8.4,
+      "source_candidate_id": "CAND_0000014"
+    },
+    "free_text": "Frontend Engineer | Full-stack development\n\nSoftware engineer with 8.4 years of experience across web, backend, and cloud systems. Strong fundamentals in software development and system design. My background is full-stack, but my comfort zone is the backend and the database. I've been keeping up with AI/ML at a self-learner level \u2014 taken some online courses, played with the OpenAI and Anthropic APIs, built a small RAG side project \u2014 but I haven't done it in a professional capacity yet. Open to roles where I can either deepen my software engineering work or, if the team is open to it, start contributing to ML-adjacent systems.\n\nFrontend Engineer / Zomato: Frontend engineering at a media company. React, TypeScript, and the typical surrounding tooling (Webpack, Jest, Cypress). Built the company's design system from scratch and led the migration from a legacy AngularJS app. Strong on the frontend craft \u2014 accessibility, performance, animations \u2014 but limited backend exposure.\n\nSoftware Engineer / Dunder Mifflin: Test automation and QA engineering for a fintech product. Built and maintained the end-to-end test suite using Selenium and pytest, plus the load-testing setup using Locust. Worked closely with developers on testability patterns and with product on acceptance criteria. Recent work has been on shifting test responsibility into the dev team \u2014 moving from QA-as-gate to QA-as-coach. Career has been entirely in QA/test engineering.\n\nJava Developer / Acme Corp: Android mobile development using Java and (more recently) Kotlin at a consumer-app company. Built and maintained multiple production features including the main shopping flow, push notification system, and the offline-first sync layer. Comfortable with the Android framework, Jetpack components, and the typical patterns (MVVM, Hilt, Coroutines). My career has been entirely on mobile so far; interested in expanding into broader backend or platform engineering.",
+    "external_handles": {}
+  },
+  {
+    "structured_fields": {
+      "roles": [
+        {
+          "title": "Software Engineer",
+          "company": "Razorpay",
+          "start": "2023-11-09"
+        },
+        {
+          "title": "Mobile Developer",
+          "company": "Hooli",
+          "start": "2021-11-12",
+          "end": "2023-11-02"
+        },
+        {
+          "title": "DevOps Engineer",
+          "company": "Globex Inc",
+          "start": "2021-02-15",
+          "end": "2021-11-12"
+        }
+      ],
+      "education": [
+        {
+          "institution": "Local Engineering College",
+          "degree": "Ph.D",
+          "field_of_study": "Mathematics",
+          "start": 2013,
+          "end": 2017
+        }
+      ],
+      "skills": [
+        "PyTorch",
+        "Content Writing",
+        "Weights & Biases",
+        "Qdrant",
+        "Sales",
+        "Figma",
+        "BigQuery",
+        "Computer Vision",
+        "Next.js",
+        "SEO"
+      ],
+      "certifications": [],
+      "industry": "Fintech",
+      "years_of_experience": 5.4,
+      "source_candidate_id": "CAND_0000015"
+    },
+    "free_text": "Software Engineer | Cloud & DevOps\n\nSoftware engineer with 5.4 years of experience across web, backend, and cloud systems. Strong fundamentals in software development and system design. I've worked across web frontends, REST APIs, and cloud deployments; comfortable in most parts of a typical SaaS stack. I've been keeping up with AI/ML at a self-learner level \u2014 taken some online courses, played with the OpenAI and Anthropic APIs, built a small RAG side project \u2014 but I haven't done it in a professional capacity yet. Open to roles where I can either deepen my software engineering work or, if the team is open to it, start contributing to ML-adjacent systems.\n\nSoftware Engineer / Razorpay: Cloud infrastructure and DevOps work at an enterprise SaaS company. Owned the AWS account architecture (VPC, IAM, networking), the Terraform modules for our service deployments, and the Kubernetes cluster operations. Designed the CI/CD pipelines (GitLab CI + ArgoCD) and the monitoring stack (Prometheus, Grafana, Loki). Strong on the infra and ops side; haven't done much application development.\n\nMobile Developer / Hooli: Android mobile development using Java and (more recently) Kotlin at a consumer-app company. Built and maintained multiple production features including the main shopping flow, push notification system, and the offline-first sync layer. Comfortable with the Android framework, Jetpack components, and the typical patterns (MVVM, Hilt, Coroutines). My career has been entirely on mobile so far; interested in expanding into broader backend or platform engineering.\n\nDevOps Engineer / Globex Inc: Java backend development at a large enterprise \u2014 Spring Boot microservices, Kafka for inter-service messaging, Postgres + Redis for storage. Worked on the customer onboarding flow which involved orchestrating multiple downstream services. Solid on the Spring ecosystem, transaction handling, and the operational side of Java services. Looking to either go deeper on distributed systems or expand into modern application stacks.",
+    "external_handles": {}
+  },
+  {
+    "structured_fields": {
+      "roles": [
+        {
+          "title": "Accountant",
+          "company": "Infosys",
+          "start": "2024-12-03"
+        },
+        {
+          "title": "Mechanical Engineer",
+          "company": "TCS",
+          "start": "2021-09-06",
+          "end": "2024-11-19"
+        },
+        {
+          "title": "Operations Manager",
+          "company": "Globex Inc",
+          "start": "2021-02-08",
+          "end": "2021-08-07"
+        }
+      ],
+      "education": [
+        {
+          "institution": "Christ University",
+          "degree": "B.E.",
+          "field_of_study": "Electronics",
+          "start": 2001,
+          "end": 2006
+        }
+      ],
+      "skills": [
+        "Node.js",
+        "Figma",
+        "Data Pipelines",
+        "Go",
+        "Photoshop",
+        "Kubeflow",
+        "Accounting",
+        "SQL"
+      ],
+      "certifications": [],
+      "industry": "IT Services",
+      "years_of_experience": 5.3,
+      "source_candidate_id": "CAND_0000016"
+    },
+    "free_text": "Accountant | Helping teams scale\n\nProfessional with 5.3+ years of experience. I'm a marketing manager with substantial experience in cross-functional collaboration, stakeholder management, and execution. Lately I've been curious about how AI tools could augment my work \u2014 I've experimented with ChatGPT and a few other tools for productivity and content creation, and I think the space is exciting. Open to roles where I can apply my domain expertise alongside emerging AI capabilities.\n\nAccountant / Infosys: Enterprise sales of cloud software solutions into the mid-market segment. Carried a $1.8M ARR quota and consistently delivered against it across the last three years. Owned the full sales cycle: prospecting, discovery, technical evaluation (with SE support), commercial negotiation, and close. Strong on consultative selling for technical buyers; comfortable engaging with both engineering and finance stakeholders.\n\nMechanical Engineer / TCS: Customer support team lead at a SaaS product. Managed a team of 8 support agents handling tier-1 and tier-2 tickets; owned the escalation process to engineering and the customer-feedback loop to product. Built out the support knowledge base and the agent training program. Strong on the people-management side and the process side; lighter on technical depth beyond product expertise.\n\nOperations Manager / Globex Inc: Mechanical engineering design role at a hardware-product company. Led the design of two product subsystems through full lifecycle: concept, DFM/DFMA review, prototype, production tooling. Comfortable with CAD (SolidWorks, Creo), FEA (ANSYS), and the typical hardware-development cadence. Worked closely with manufacturing partners on production scale-up.",
+    "external_handles": {}
+  },
+  {
+    "structured_fields": {
+      "roles": [
+        {
+          "title": "Accountant",
+          "company": "Wipro",
+          "start": "2024-03-08"
+        },
+        {
+          "title": "Customer Support",
+          "company": "Infosys",
+          "start": "2021-02-08",
+          "end": "2024-02-23"
+        },
+        {
+          "title": "Mechanical Engineer",
+          "company": "Initech",
+          "start": "2017-07-29",
+          "end": "2021-02-08"
+        },
+        {
+          "title": "Accountant",
+          "company": "Acme Corp",
+          "start": "2014-05-16",
+          "end": "2017-07-29"
+        }
+      ],
+      "education": [
+        {
+          "institution": "Tier-3 Engineering College",
+          "degree": "M.Tech",
+          "field_of_study": "Data Science",
+          "start": 2017,
+          "end": 2022
+        }
+      ],
+      "skills": [
+        "Next.js",
+        "Java",
+        "Apache Flink",
+        "Sales",
+        "Tally",
+        "PostgreSQL",
+        "REST APIs",
+        "Hadoop"
+      ],
+      "certifications": [
+        "Six Sigma Green Belt",
+        "Scrum Master Certified"
+      ],
+      "industry": "IT Services",
+      "years_of_experience": 12.3,
+      "source_candidate_id": "CAND_0000017"
+    },
+    "free_text": "Accountant | 12.3+ yrs experience\n\nProfessional with 12.3+ years of experience. My professional background is in marketing manager \u2014 I've built and led teams, owned KPIs, and driven business outcomes in this domain. Lately I've been curious about how AI tools could augment my work \u2014 I've experimented with ChatGPT and a few other tools for productivity and content creation, and I think the space is exciting. Open to roles where I can apply my domain expertise alongside emerging AI capabilities.\n\nAccountant / Wipro: Customer support team lead at a SaaS product. Managed a team of 8 support agents handling tier-1 and tier-2 tickets; owned the escalation process to engineering and the customer-feedback loop to product. Built out the support knowledge base and the agent training program. Strong on the people-management side and the process side; lighter on technical depth beyond product expertise.\n\nCustomer Support / Infosys: Mechanical engineering design role at a hardware-product company. Led the design of two product subsystems through full lifecycle: concept, DFM/DFMA review, prototype, production tooling. Comfortable with CAD (SolidWorks, Creo), FEA (ANSYS), and the typical hardware-development cadence. Worked closely with manufacturing partners on production scale-up.\n\nMechanical Engineer / Initech: Enterprise sales of cloud software solutions into the mid-market segment. Carried a $1.8M ARR quota and consistently delivered against it across the last three years. Owned the full sales cycle: prospecting, discovery, technical evaluation (with SE support), commercial negotiation, and close. Strong on consultative selling for technical buyers; comfortable engaging with both engineering and finance stakeholders.\n\nAccountant / Acme Corp: Senior accounting role at a mid-sized company \u2014 month-end close, financial reporting, statutory compliance (GAAP / Ind-AS), and tax filings. Owned the GL, fixed-asset register, and the audit-readiness function. Managed a team of 3 staff accountants. Built strong process discipline around the close cycle, reducing close time from 12 days to 7 over the last two years.",
+    "external_handles": {}
+  },
+  {
+    "structured_fields": {
+      "roles": [
+        {
+          "title": "Frontend Engineer",
+          "company": "Acme Corp",
+          "start": "2023-09-10"
+        },
+        {
+          "title": "Frontend Engineer",
+          "company": "Pied Piper",
+          "start": "2021-01-23",
+          "end": "2023-09-10"
+        },
+        {
+          "title": "Full Stack Developer",
+          "company": "Initech",
+          "start": "2019-12-30",
+          "end": "2021-01-23"
+        }
+      ],
+      "education": [
+        {
+          "institution": "Lovely Professional University",
+          "degree": "Ph.D",
+          "field_of_study": "Computer Engineering",
+          "start": 2016,
+          "end": 2020
+        }
+      ],
+      "skills": [
+        "CNN",
+        "Java",
+        "Accounting",
+        "Data Pipelines",
+        "Node.js",
+        "Tailwind"
+      ],
+      "certifications": [],
+      "industry": "Manufacturing",
+      "years_of_experience": 6.6,
+      "source_candidate_id": "CAND_0000018"
+    },
+    "free_text": "Frontend Engineer | Full-stack development\n\nSoftware engineer with 6.6 years of experience across web, backend, and cloud systems. Strong fundamentals in software development and system design. My background is full-stack, but my comfort zone is the backend and the database. I've been keeping up with AI/ML at a self-learner level \u2014 taken some online courses, played with the OpenAI and Anthropic APIs, built a small RAG side project \u2014 but I haven't done it in a professional capacity yet. Open to roles where I can either deepen my software engineering work or, if the team is open to it, start contributing to ML-adjacent systems.\n\nFrontend Engineer / Acme Corp: Test automation and QA engineering for a fintech product. Built and maintained the end-to-end test suite using Selenium and pytest, plus the load-testing setup using Locust. Worked closely with developers on testability patterns and with product on acceptance criteria. Recent work has been on shifting test responsibility into the dev team \u2014 moving from QA-as-gate to QA-as-coach. Career has been entirely in QA/test engineering.\n\nFrontend Engineer / Pied Piper: Test automation and QA engineering for a fintech product. Built and maintained the end-to-end test suite using Selenium and pytest, plus the load-testing setup using Locust. Worked closely with developers on testability patterns and with product on acceptance criteria. Recent work has been on shifting test responsibility into the dev team \u2014 moving from QA-as-gate to QA-as-coach. Career has been entirely in QA/test engineering.\n\nFull Stack Developer / Initech: Android mobile development using Java and (more recently) Kotlin at a consumer-app company. Built and maintained multiple production features including the main shopping flow, push notification system, and the offline-first sync layer. Comfortable with the Android framework, Jetpack components, and the typical patterns (MVVM, Hilt, Coroutines). My career has been entirely on mobile so far; interested in expanding into broader backend or platform engineering.",
+    "external_handles": {}
+  },
+  {
+    "structured_fields": {
+      "roles": [
+        {
+          "title": "Project Manager",
+          "company": "Wayne Enterprises",
+          "start": "2022-10-15"
+        },
+        {
+          "title": "Marketing Manager",
+          "company": "Wayne Enterprises",
+          "start": "2020-08-19",
+          "end": "2022-10-08"
+        },
+        {
+          "title": "Business Analyst",
+          "company": "Pied Piper",
+          "start": "2020-01-15",
+          "end": "2020-08-12"
+        }
+      ],
+      "education": [
+        {
+          "institution": "IISc Bangalore",
+          "degree": "M.Tech",
+          "field_of_study": "Computer Science",
+          "start": 2010,
+          "end": 2014
+        },
+        {
+          "institution": "IIT Guwahati",
+          "degree": "M.Tech",
+          "field_of_study": "Machine Learning",
+          "start": 2002,
+          "end": 2006
+        }
+      ],
+      "skills": [
+        "Figma",
+        "GraphQL",
+        "Six Sigma",
+        "Scrum",
+        "YOLO",
+        "gRPC",
+        "AWS",
+        "Azure"
+      ],
+      "certifications": [],
+      "industry": "Conglomerate",
+      "years_of_experience": 6.5,
+      "source_candidate_id": "CAND_0000019"
+    },
+    "free_text": "Project Manager | 6.5+ yrs experience\n\nProfessional with 6.5+ years of experience. I've spent my career in marketing manager roles, mostly focused on driving outcomes through process, people, and customer relationships. Lately I've been curious about how AI tools could augment my work \u2014 I've experimented with ChatGPT and a few other tools for productivity and content creation, and I think the space is exciting. Open to roles where I can apply my domain expertise alongside emerging AI capabilities.\n\nProject Manager / Wayne Enterprises: Business analyst at a consulting firm, working primarily with retail and CPG clients. Conducted business diagnostics, process re-engineering work, and digital transformation strategy projects. Strong on stakeholder management, structured problem-solving, and the typical consulting toolkit (slide-craft, Excel modeling, executive communication). Recent project work involved AI-strategy advisory but my own technical depth in AI is limited.\n\nMarketing Manager / Wayne Enterprises: Mechanical engineering design role at a hardware-product company. Led the design of two product subsystems through full lifecycle: concept, DFM/DFMA review, prototype, production tooling. Comfortable with CAD (SolidWorks, Creo), FEA (ANSYS), and the typical hardware-development cadence. Worked closely with manufacturing partners on production scale-up.\n\nBusiness Analyst / Pied Piper: Brand design and creative direction at a consumer-products company. Owned brand identity (logo, visual system, typography), packaging design, and digital creative across web and social. Led the recent rebrand and managed a small external agency for production work. Comfortable across the Adobe suite, Figma, and the production side of brand and packaging design.",
+    "external_handles": {}
+  },
+  {
+    "structured_fields": {
+      "roles": [
+        {
+          "title": "Mechanical Engineer",
+          "company": "Wipro",
+          "start": "2023-06-12"
+        },
+        {
+          "title": "Graphic Designer",
+          "company": "Stark Industries",
+          "start": "2020-07-27",
+          "end": "2023-04-13"
+        },
+        {
+          "title": "Civil Engineer",
+          "company": "Dunder Mifflin",
+          "start": "2020-01-29",
+          "end": "2020-07-27"
+        }
+      ],
+      "education": [
+        {
+          "institution": "IIT Kharagpur",
+          "degree": "B.E.",
+          "field_of_study": "Computer Science",
+          "start": 2018,
+          "end": 2022
+        }
+      ],
+      "skills": [
+        "GraphQL",
+        "TypeScript",
+        "Flask",
+        "Weights & Biases",
+        "GCP",
+        "Salesforce CRM",
+        "HTML"
+      ],
+      "certifications": [
+        "Scrum Master Certified"
+      ],
+      "industry": "IT Services",
+      "years_of_experience": 6.3,
+      "source_candidate_id": "CAND_0000020"
+    },
+    "free_text": "Mechanical Engineer | 6.3+ yrs experience\n\nProfessional with 6.3+ years of experience. I'm a marketing manager with substantial experience in cross-functional collaboration, stakeholder management, and execution. Lately I've been curious about how AI tools could augment my work \u2014 I've experimented with ChatGPT and a few other tools for productivity and content creation, and I think the space is exciting. Open to roles where I can apply my domain expertise alongside emerging AI capabilities.\n\nMechanical Engineer / Wipro: Marketing leadership role at a B2B SaaS company. Owned the demand-generation function \u2014 content marketing, paid acquisition, SEO, email nurture. Built and managed a team of 5 across content, performance marketing, and marketing operations. Worked closely with sales on lead-quality definitions and the SDR-handoff process. Recent focus has been on account-based marketing for our enterprise segment.\n\nGraphic Designer / Stark Industries: Marketing leadership role at a B2B SaaS company. Owned the demand-generation function \u2014 content marketing, paid acquisition, SEO, email nurture. Built and managed a team of 5 across content, performance marketing, and marketing operations. Worked closely with sales on lead-quality definitions and the SDR-handoff process. Recent focus has been on account-based marketing for our enterprise segment.\n\nCivil Engineer / Dunder Mifflin: Content writing and SEO strategy for a tech-focused publication. Wrote longform articles on developer tools, cloud platforms, and AI/ML topics \u2014 including some that ranked on the first page of search for high-competition keywords. Managed a freelance writer pool and the editorial calendar. Recent work has been on AI-assisted content production, using LLM tools for research, drafting, and editing while maintaining editorial quality.",
+    "external_handles": {}
+  },
+  {
+    "structured_fields": {
+      "roles": [
+        {
+          "title": "Project Manager",
+          "company": "Wipro",
+          "start": "2023-12-09"
+        },
+        {
+          "title": "Marketing Manager",
+          "company": "Infosys",
+          "start": "2021-02-22",
+          "end": "2023-10-10"
+        },
+        {
+          "title": "Sales Executive",
+          "company": "Stark Industries",
+          "start": "2019-08-25",
+          "end": "2021-02-15"
+        },
+        {
+          "title": "Customer Support",
+          "company": "Dunder Mifflin",
+          "start": "2015-06-17",
+          "end": "2019-08-25"
+        },
+        {
+          "title": "Project Manager",
+          "company": "Wipro",
+          "start": "2014-03-24",
+          "end": "2015-06-17"
+        },
+        {
+          "title": "Customer Support",
+          "company": "TCS",
+          "start": "2011-12-05",
+          "end": "2014-01-23"
+        }
+      ],
+      "education": [
+        {
+          "institution": "Tier-3 Engineering College",
+          "degree": "B.Tech",
+          "field_of_study": "Artificial Intelligence",
+          "start": 2008,
+          "end": 2011
+        }
+      ],
+      "skills": [
+        "Hadoop",
+        "PostgreSQL",
+        "Kafka",
+        "Microservices",
+        "AWS",
+        "TypeScript",
+        "ETL",
+        "Spring Boot",
+        "Recommendation Systems",
+        "Fine-tuning LLMs",
+        "Prompt Engineering",
+        "LangChain",
+        "Pinecone",
+        "Vector Search",
+        "Embeddings",
+        "FAISS"
+      ],
+      "certifications": [],
+      "industry": "IT Services",
+      "years_of_experience": 14.5,
+      "source_candidate_id": "CAND_0000021"
+    },
+    "free_text": "Project Manager | AI enthusiast | Building with LLMs\n\nProject Manager with 14.5+ years of experience driving outcomes in my domain. I have built strong functional expertise in the typical responsibilities of the role, including team management, stakeholder communication, and project delivery. Recently I've been excited about how AI and GenAI tools can augment my work. I've been taking online courses on RAG and vector databases, experimenting with LangChain and the OpenAI API for side projects, and exploring how LLMs can streamline workflows in my current function. Open to roles that combine my existing domain experience with emerging AI technologies \u2014 I think the most interesting opportunities are at this intersection. Looking for positions where I can contribute both my functional expertise and grow my AI capabilities.\n\nProject Manager / Wipro: Brand design and creative direction at a consumer-products company. Owned brand identity (logo, visual system, typography), packaging design, and digital creative across web and social. Led the recent rebrand and managed a small external agency for production work. Comfortable across the Adobe suite, Figma, and the production side of brand and packaging design.\n\nMarketing Manager / Infosys: Mechanical engineering design role at a hardware-product company. Led the design of two product subsystems through full lifecycle: concept, DFM/DFMA review, prototype, production tooling. Comfortable with CAD (SolidWorks, Creo), FEA (ANSYS), and the typical hardware-development cadence. Worked closely with manufacturing partners on production scale-up.\n\nSales Executive / Stark Industries: Customer support team lead at a SaaS product. Managed a team of 8 support agents handling tier-1 and tier-2 tickets; owned the escalation process to engineering and the customer-feedback loop to product. Built out the support knowledge base and the agent training program. Strong on the people-management side and the process side; lighter on technical depth beyond product expertise.\n\nCustomer Support / Dunder Mifflin: Customer support team lead at a SaaS product. Managed a team of 8 support agents handling tier-1 and tier-2 tickets; owned the escalation process to engineering and the customer-feedback loop to product. Built out the support knowledge base and the agent training program. Strong on the people-management side and the process side; lighter on technical depth beyond product expertise.\n\nProject Manager / Wipro: Customer support team lead at a SaaS product. Managed a team of 8 support agents handling tier-1 and tier-2 tickets; owned the escalation process to engineering and the customer-feedback loop to product. Built out the support knowledge base and the agent training program. Strong on the people-management side and the process side; lighter on technical depth beyond product expertise.\n\nCustomer Support / TCS: Business analyst at a consulting firm, working primarily with retail and CPG clients. Conducted business diagnostics, process re-engineering work, and digital transformation strategy projects. Strong on stakeholder management, structured problem-solving, and the typical consulting toolkit (slide-craft, Excel modeling, executive communication). Recent project work involved AI-strategy advisory but my own technical depth in AI is limited.",
+    "external_handles": {}
+  },
+  {
+    "structured_fields": {
+      "roles": [
+        {
+          "title": "Mechanical Engineer",
+          "company": "Hooli",
+          "start": "2025-05-02"
+        }
+      ],
+      "education": [
+        {
+          "institution": "VJTI Mumbai",
+          "degree": "M.E.",
+          "field_of_study": "Information Technology",
+          "start": 2002,
+          "end": 2006
+        }
+      ],
+      "skills": [
+        "OpenCV",
+        "Django",
+        "Terraform",
+        "Scrum",
+        "SQL",
+        "Java",
+        "AWS",
+        "Six Sigma"
+      ],
+      "certifications": [
+        "AWS Certified Cloud Practitioner"
+      ],
+      "industry": "Software",
+      "years_of_experience": 1.1,
+      "source_candidate_id": "CAND_0000022"
+    },
+    "free_text": "Mechanical Engineer | Driving business outcomes\n\nProfessional with 1.1+ years of experience. I'm a marketing manager with substantial experience in cross-functional collaboration, stakeholder management, and execution. Lately I've been curious about how AI tools could augment my work \u2014 I've experimented with ChatGPT and a few other tools for productivity and content creation, and I think the space is exciting. Open to roles where I can apply my domain expertise alongside emerging AI capabilities.\n\nMechanical Engineer / Hooli: Content writing and SEO strategy for a tech-focused publication. Wrote longform articles on developer tools, cloud platforms, and AI/ML topics \u2014 including some that ranked on the first page of search for high-competition keywords. Managed a freelance writer pool and the editorial calendar. Recent work has been on AI-assisted content production, using LLM tools for research, drafting, and editing while maintaining editorial quality.",
+    "external_handles": {}
+  },
+  {
+    "structured_fields": {
+      "roles": [
+        {
+          "title": "Software Engineer",
+          "company": "Acme Corp",
+          "start": "2025-04-02"
+        },
+        {
+          "title": "Frontend Engineer",
+          "company": "Flipkart",
+          "start": "2022-10-15",
+          "end": "2025-04-02"
+        }
+      ],
+      "education": [
+        {
+          "institution": "VJTI Mumbai",
+          "degree": "B.E.",
+          "field_of_study": "Data Science",
+          "start": 2009,
+          "end": 2013
+        }
+      ],
+      "skills": [
+        "BigQuery",
+        "Marketing",
+        "Node.js",
+        "Django",
+        "Salesforce CRM",
+        "MongoDB",
+        "ETL",
+        "Redis",
+        "Illustrator",
+        "Rust"
+      ],
+      "certifications": [],
+      "industry": "Manufacturing",
+      "years_of_experience": 3.7,
+      "source_candidate_id": "CAND_0000023"
+    },
+    "free_text": "Software Engineer | Cloud & DevOps\n\nSoftware engineer with 3.7 years of experience across web, backend, and cloud systems. Strong fundamentals in software development and system design. Most of my work is conventional backend engineering \u2014 APIs, databases, queues, deployments. I've been keeping up with AI/ML at a self-learner level \u2014 taken some online courses, played with the OpenAI and Anthropic APIs, built a small RAG side project \u2014 but I haven't done it in a professional capacity yet. Open to roles where I can either deepen my software engineering work or, if the team is open to it, start contributing to ML-adjacent systems.\n\nSoftware Engineer / Acme Corp: Test automation and QA engineering for a fintech product. Built and maintained the end-to-end test suite using Selenium and pytest, plus the load-testing setup using Locust. Worked closely with developers on testability patterns and with product on acceptance criteria. Recent work has been on shifting test responsibility into the dev team \u2014 moving from QA-as-gate to QA-as-coach. Career has been entirely in QA/test engineering.\n\nFrontend Engineer / Flipkart: Android mobile development using Java and (more recently) Kotlin at a consumer-app company. Built and maintained multiple production features including the main shopping flow, push notification system, and the offline-first sync layer. Comfortable with the Android framework, Jetpack components, and the typical patterns (MVVM, Hilt, Coroutines). My career has been entirely on mobile so far; interested in expanding into broader backend or platform engineering.",
+    "external_handles": {}
+  },
+  {
+    "structured_fields": {
+      "roles": [
+        {
+          "title": "HR Manager",
+          "company": "TCS",
+          "start": "2023-04-13"
+        },
+        {
+          "title": "Accountant",
+          "company": "Infosys",
+          "start": "2018-12-05",
+          "end": "2023-02-12"
+        }
+      ],
+      "education": [
+        {
+          "institution": "Symbiosis International",
+          "degree": "Ph.D",
+          "field_of_study": "Computer Science",
+          "start": 2008,
+          "end": 2013
+        }
+      ],
+      "skills": [
+        "Figma",
+        "Kubernetes",
+        "Forecasting",
+        "ETL",
+        "Node.js",
+        "Docker"
+      ],
+      "certifications": [],
+      "industry": "IT Services",
+      "years_of_experience": 7.5,
+      "source_candidate_id": "CAND_0000024"
+    },
+    "free_text": "HR Manager | 7.5+ yrs experience\n\nProfessional with 7.5+ years of experience. I've spent my career in marketing manager roles, mostly focused on driving outcomes through process, people, and customer relationships. Lately I've been curious about how AI tools could augment my work \u2014 I've experimented with ChatGPT and a few other tools for productivity and content creation, and I think the space is exciting. Open to roles where I can apply my domain expertise alongside emerging AI capabilities.\n\nHR Manager / TCS: Marketing leadership role at a B2B SaaS company. Owned the demand-generation function \u2014 content marketing, paid acquisition, SEO, email nurture. Built and managed a team of 5 across content, performance marketing, and marketing operations. Worked closely with sales on lead-quality definitions and the SDR-handoff process. Recent focus has been on account-based marketing for our enterprise segment.\n\nAccountant / Infosys: Content writing and SEO strategy for a tech-focused publication. Wrote longform articles on developer tools, cloud platforms, and AI/ML topics \u2014 including some that ranked on the first page of search for high-competition keywords. Managed a freelance writer pool and the editorial calendar. Recent work has been on AI-assisted content production, using LLM tools for research, drafting, and editing while maintaining editorial quality.",
+    "external_handles": {}
+  },
+  {
+    "structured_fields": {
+      "roles": [
+        {
+          "title": "Frontend Engineer",
+          "company": "Tech Mahindra",
+          "start": "2023-09-10"
+        },
+        {
+          "title": "Frontend Engineer",
+          "company": "Mindtree",
+          "start": "2019-09-17",
+          "end": "2023-08-27"
+        },
+        {
+          "title": "Frontend Engineer",
+          "company": "Zomato",
+          "start": "2019-03-21",
+          "end": "2019-09-17"
+        }
+      ],
+      "education": [
+        {
+          "institution": "Regional Technical Institute",
+          "degree": "Ph.D",
+          "field_of_study": "Mechanical Engineering",
+          "start": 2006,
+          "end": 2010
+        }
+      ],
+      "skills": [
+        "JavaScript",
+        "Spark",
+        "GCP",
+        "TypeScript",
+        "LangChain",
+        "Apache Flink",
+        "ETL",
+        "Redis",
+        "Data Pipelines"
+      ],
+      "certifications": [
+        "Six Sigma Green Belt",
+        "AWS Certified Cloud Practitioner"
+      ],
+      "industry": "IT Services",
+      "years_of_experience": 7.3,
+      "source_candidate_id": "CAND_0000025"
+    },
+    "free_text": "Frontend Engineer | Cloud & DevOps\n\nSoftware engineer with 7.3 years of experience across web, backend, and cloud systems. Strong fundamentals in software development and system design. I've worked across web frontends, REST APIs, and cloud deployments; comfortable in most parts of a typical SaaS stack. I've been keeping up with AI/ML at a self-learner level \u2014 taken some online courses, played with the OpenAI and Anthropic APIs, built a small RAG side project \u2014 but I haven't done it in a professional capacity yet. Open to roles where I can either deepen my software engineering work or, if the team is open to it, start contributing to ML-adjacent systems.\n\nFrontend Engineer / Tech Mahindra: Android mobile development using Java and (more recently) Kotlin at a consumer-app company. Built and maintained multiple production features including the main shopping flow, push notification system, and the offline-first sync layer. Comfortable with the Android framework, Jetpack components, and the typical patterns (MVVM, Hilt, Coroutines). My career has been entirely on mobile so far; interested in expanding into broader backend or platform engineering.\n\nFrontend Engineer / Mindtree: Android mobile development using Java and (more recently) Kotlin at a consumer-app company. Built and maintained multiple production features including the main shopping flow, push notification system, and the offline-first sync layer. Comfortable with the Android framework, Jetpack components, and the typical patterns (MVVM, Hilt, Coroutines). My career has been entirely on mobile so far; interested in expanding into broader backend or platform engineering.\n\nFrontend Engineer / Zomato: Frontend engineering at a media company. React, TypeScript, and the typical surrounding tooling (Webpack, Jest, Cypress). Built the company's design system from scratch and led the migration from a legacy AngularJS app. Strong on the frontend craft \u2014 accessibility, performance, animations \u2014 but limited backend exposure.",
+    "external_handles": {}
+  }
+]
