@@ -24,3 +24,7 @@ env/
 # OS / editor
 .DS_Store
 Thumbs.db
+
+.cache 
+model_cache/
+model.safetensors
