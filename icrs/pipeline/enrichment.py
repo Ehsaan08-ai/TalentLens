@@ -198,12 +198,16 @@ class EnrichmentMixin:
         cached = self._enrich_cache.get(cache_key)
         if cached is not None:
             # Hand back an independent copy so callers cannot mutate the cache.
-            return cached.model_copy(deep=True)
+            return cached.model_copy(
+                update={"id": profile.id, "base": profile},
+                deep=True,
+            )
 
         # Tier 1 — structural (deterministic). Absent fields are None.
         structural = self.derive_structural_signals(profile)
 
-        # Tier 2 — semantic (single batched LLM call).
+        # Tier 2 — semantic. In local mode this is deterministic and makes no
+        # LLM call; in LLM mode this is the original single completion.
         semantic = self._infer_semantic_signals(profile)
 
         # Tier 3 — behavioral (injectable source; empty by default).
@@ -275,21 +279,28 @@ class EnrichmentMixin:
 
     # ----- Tier 2: semantic ----- #
     def _infer_semantic_signals(self, profile: NormalizedProfile) -> dict[str, Any]:
-        """Infer Tier 2 semantic signals via one batched LLM call.
+        """Infer Tier 2 semantic signals using the configured enrichment mode.
 
-        Batches all four semantic aspects (responsibilities, implicit skills,
-        trajectory arc, depth/breadth) into a single completion. Output is parsed
-        tolerantly: malformed or missing fields resolve to *not-present*
-        (empty list / ``None``) so a bad response lowers semantic availability
-        rather than crashing the pipeline.
+        ``local`` mode is deterministic and does not call an LLM, making it the
+        preferred free-tier setting for large pools. ``llm`` mode preserves the
+        original provider-backed enrichment for small, high-fidelity runs.
         """
+
+        if getattr(self, "_semantic_mode", "llm") == "local":
+            return _local_semantic_signals(profile)
 
         provider = self._get_enrich_provider()
         messages = _build_enrich_messages(profile)
-        response = provider.complete(
-            messages, temperature=0.0, response_format="json"
-        )
-        data = _safe_extract_json(response.text)
+        try:
+            response = provider.complete(
+                messages, temperature=0.0, response_format="json"
+            )
+            data = _safe_extract_json(response.text)
+        except Exception:
+            # Large candidate pools on free-tier LLMs can exhaust rate limits.
+            # Keep the ranking run alive with structural/embedding signals
+            # instead of aborting the whole pool.
+            data = {}
 
         return {
             "inferred_responsibilities": _string_list(
@@ -416,7 +427,7 @@ class EnrichmentMixin:
     def _content_hash(profile: NormalizedProfile) -> str:
         """Stable content hash of the normalized profile used as the cache key."""
 
-        payload = profile.model_dump_json()
+        payload = profile.model_dump_json(exclude={"id": True})
         return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
@@ -548,6 +559,183 @@ def _serialize_profile(profile: NormalizedProfile) -> str:
         lines.append("EXPLICIT_SKILLS: " + ", ".join(profile.explicit_skills))
 
     return "\n".join(lines) if lines else "(no structured data)"
+
+
+_SENIORITY_KEYWORDS: tuple[tuple[str, int], ...] = (
+    ("chief", 6),
+    ("president", 6),
+    ("vice president", 6),
+    ("vp", 6),
+    ("director", 5),
+    ("head of", 5),
+    ("principal", 4),
+    ("lead", 4),
+    ("staff", 4),
+    ("senior", 3),
+    ("sr.", 3),
+    ("manager", 3),
+    ("engineer", 2),
+    ("developer", 2),
+    ("analyst", 2),
+    ("associate", 1),
+    ("junior", 1),
+    ("jr.", 1),
+    ("intern", 0),
+    ("trainee", 0),
+)
+
+_SKILL_FAMILY_KEYWORDS: tuple[tuple[str, tuple[str, ...]], ...] = (
+    ("python", ("backend development", "automation")),
+    ("django", ("backend development",)),
+    ("fastapi", ("api development",)),
+    ("flask", ("api development",)),
+    ("java", ("backend development",)),
+    ("go", ("backend development",)),
+    ("golang", ("backend development",)),
+    ("node", ("backend development",)),
+    ("react", ("frontend development",)),
+    ("angular", ("frontend development",)),
+    ("vue", ("frontend development",)),
+    ("sql", ("data modeling",)),
+    ("postgres", ("relational databases",)),
+    ("mysql", ("relational databases",)),
+    ("snowflake", ("data warehousing",)),
+    ("spark", ("data engineering",)),
+    ("airflow", ("workflow orchestration",)),
+    ("kafka", ("streaming systems",)),
+    ("aws", ("cloud platforms",)),
+    ("azure", ("cloud platforms",)),
+    ("gcp", ("cloud platforms",)),
+    ("kubernetes", ("container orchestration",)),
+    ("docker", ("containerization",)),
+    ("tensorflow", ("machine learning",)),
+    ("pytorch", ("machine learning",)),
+    ("ml", ("machine learning",)),
+)
+
+
+def _local_semantic_signals(profile: NormalizedProfile) -> dict[str, Any]:
+    """Deterministic Tier-2 approximation used for fast bulk ranking.
+
+    The heuristic deliberately uses only normalized professional fields. It is
+    not as expressive as an LLM, but it avoids one free-tier LLM call per resume
+    and gives the downstream scorer useful trajectory/depth evidence.
+    """
+
+    responsibilities = _local_responsibilities(profile)
+    implicit_skills = _local_implicit_skills(profile)
+    return {
+        "inferred_responsibilities": responsibilities,
+        "implicit_skills": implicit_skills,
+        "trajectory_arc": _local_trajectory_arc(profile),
+        "depth_breadth": _local_depth_breadth(profile, implicit_skills),
+    }
+
+
+def _local_responsibilities(profile: NormalizedProfile) -> list[str]:
+    responsibilities: list[str] = []
+    if profile.roles:
+        latest = _roles_chronological(profile.roles)[-1]
+        responsibilities.append(f"performed {latest.title} responsibilities")
+        if _seniority_score(latest.title) >= 4:
+            responsibilities.append("owned senior technical or team leadership scope")
+        elif _seniority_score(latest.title) >= 3:
+            responsibilities.append("delivered senior-level project execution")
+    if profile.total_tenure_months >= 60:
+        responsibilities.append("built experience across multi-year delivery cycles")
+    if profile.explicit_skills:
+        responsibilities.append(
+            "applied core skills: " + ", ".join(profile.explicit_skills[:5])
+        )
+    return _dedupe_preserve_order(responsibilities)
+
+
+def _local_implicit_skills(profile: NormalizedProfile) -> list[str]:
+    inferred: list[str] = []
+    explicit_lower = {skill.lower() for skill in profile.explicit_skills}
+    for skill in explicit_lower:
+        for keyword, families in _SKILL_FAMILY_KEYWORDS:
+            if keyword in skill:
+                inferred.extend(families)
+    titles = " ".join(role.title.lower() for role in profile.roles)
+    if any(term in titles for term in ("lead", "manager", "head", "director")):
+        inferred.append("leadership")
+    if any(term in titles for term in ("data", "ml", "machine learning", "ai")):
+        inferred.append("data and AI delivery")
+    if any(term in titles for term in ("backend", "platform", "systems")):
+        inferred.append("distributed systems")
+    return _dedupe_preserve_order(inferred)
+
+
+def _local_trajectory_arc(profile: NormalizedProfile) -> TrajectoryArc | None:
+    if not profile.roles:
+        if profile.total_tenure_months >= 24:
+            return TrajectoryArc.STEADY
+        return None
+
+    ordered = _roles_chronological(profile.roles)
+    scores = [_seniority_score(role.title) for role in ordered]
+    first = scores[0]
+    last = scores[-1]
+    if last > first:
+        return TrajectoryArc.ACCELERATING
+    if last < first:
+        return TrajectoryArc.DECLINING
+    unique_titles = {role.title.strip().lower() for role in ordered if role.title.strip()}
+    if len(unique_titles) > 1:
+        return TrajectoryArc.LATERAL
+    return TrajectoryArc.STEADY
+
+
+def _local_depth_breadth(
+    profile: NormalizedProfile, implicit_skills: list[str]
+) -> DepthBreadth | None:
+    evidence_count = len(set(profile.explicit_skills)) + len(set(implicit_skills))
+    domain_tokens = {
+        token
+        for role in profile.roles
+        for token in role.title.lower().replace("/", " ").split()
+        if token not in {"senior", "sr.", "junior", "jr.", "lead", "manager"}
+    }
+    if evidence_count == 0 and not domain_tokens:
+        return None
+    if evidence_count >= 10 or len(domain_tokens) >= 6:
+        return DepthBreadth.GENERALIST
+    if evidence_count >= 5 or len(domain_tokens) >= 3:
+        return DepthBreadth.BALANCED
+    return DepthBreadth.SPECIALIST
+
+
+def _roles_chronological(roles: list[Role]) -> list[Role]:
+    indexed = list(enumerate(roles))
+    indexed.sort(
+        key=lambda pair: (
+            pair[1].start is None,
+            pair[1].start or _far_future(),
+            pair[0],
+        )
+    )
+    return [role for _, role in indexed]
+
+
+def _seniority_score(title: str) -> int:
+    lowered = (title or "").lower()
+    for keyword, score in _SENIORITY_KEYWORDS:
+        if keyword in lowered:
+            return score
+    return 2 if lowered else 0
+
+
+def _dedupe_preserve_order(values: list[str]) -> list[str]:
+    result: list[str] = []
+    seen: set[str] = set()
+    for value in values:
+        cleaned = value.strip()
+        key = cleaned.lower()
+        if cleaned and key not in seen:
+            seen.add(key)
+            result.append(cleaned)
+    return result
 
 
 _ENRICH_SCHEMA = (

@@ -23,6 +23,8 @@ from icrs.ui.dashboard import (
     format_confidence,
     format_score,
     parse_candidate_pool,
+    parse_candidate_pool_documents,
+    parse_source_record_documents,
     transform_response_to_rows,
 )
 
@@ -222,6 +224,46 @@ def test_parse_candidate_pool_csv_generic_flat():
     assert "john@example.com" not in blob
     assert "USA" not in blob
     assert "country" not in blob
+
+
+def test_parse_candidate_pool_documents_combines_multiple_files():
+    docs = [
+        (
+            "one.json",
+            json.dumps([{"structured_fields": {"role": "Engineer"}, "free_text": "Python"}]),
+        ),
+        (
+            "two.csv",
+            "id,name,skills,summary\nCAND2,Jane Doe,\"Go, SQL\",Database engineer",
+        ),
+    ]
+
+    rows = parse_candidate_pool_documents(docs)
+
+    assert len(rows) == 2
+    assert rows[0]["structured_fields"] == {"role": "Engineer"}
+    assert rows[1]["structured_fields"]["skills"] == ["Go", "SQL"]
+    assert rows[1]["free_text"] == "Database engineer"
+
+
+def test_parse_source_record_documents_preserves_display_names():
+    docs = [
+        (
+            "one.csv",
+            "id,name,skills,summary\nCAND1,Ira Vora,Python,Good developer",
+        ),
+        (
+            "two.jsonl",
+            '{"candidate_id": "CAND2", "profile": {"anonymized_name": "Anil Dev"}}',
+        ),
+    ]
+
+    records = parse_source_record_documents(docs)
+
+    assert [r.get("name") or r.get("profile", {}).get("anonymized_name") for r in records] == [
+        "Ira Vora",
+        "Anil Dev",
+    ]
 
 
 # --------------------------------------------------------------------------- #

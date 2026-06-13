@@ -1,7 +1,8 @@
 from __future__ import annotations
 
+import html
 import json
-from typing import Any, Callable
+from typing import Any, Callable, Sequence
 
 
 # Default backend base URL for the FastAPI ranking service. Configurable in the
@@ -188,8 +189,7 @@ def _generic_dict_to_raw_candidate(row: dict[str, Any]) -> dict[str, Any]:
         parsed_value = value
         if isinstance(value, str) and value.strip():
             val_stripped = value.strip()
-            if (val_stripped.startswith("{") and val_stripped.endswith("}")) or \
-               (val_stripped.startswith("[") and val_stripped.endswith("]")):
+            if (val_stripped.startswith("{") and val_stripped.endswith("}")) or (val_stripped.startswith("[") and val_stripped.endswith("]")):
                 try:
                     parsed_value = json.loads(val_stripped)
                 except Exception:
@@ -286,6 +286,76 @@ def parse_candidate_pool(raw_text: str, filename: str | None = None) -> list[dic
     return candidates
 
 
+def parse_candidate_pool_documents(
+    documents: Sequence[tuple[str, str]],
+) -> list[dict[str, Any]]:
+    """Parse one or more uploaded candidate-pool documents into one pool.
+
+    Each document is parsed using :func:`parse_candidate_pool`, preserving the
+    filename so JSON/JSONL/CSV detection stays accurate for folder or multi-file
+    uploads.
+    """
+
+    if not documents:
+        raise CandidatePoolError("Candidate pool is empty. Upload or paste at least one candidate file.")
+
+    candidates: list[dict[str, Any]] = []
+    errors: list[str] = []
+    for filename, raw_text in documents:
+        if not (raw_text or "").strip():
+            continue
+        try:
+            candidates.extend(parse_candidate_pool(raw_text, filename=filename))
+        except CandidatePoolError as exc:
+            errors.append(f"{filename}: {exc}")
+
+    if errors:
+        raise CandidatePoolError("Unable to parse candidate pool file(s):\n" + "\n".join(errors))
+    if not candidates:
+        raise CandidatePoolError("Candidate pool is empty. Provide at least one candidate.")
+    return candidates
+
+
+def parse_source_records(raw_text: str, filename: str | None = None) -> list[dict[str, Any]]:
+    """Parse source records without RawCandidate normalization.
+
+    Used by the UI to recover display names after :func:`parse_candidate_pool`
+    has stripped protected proxy fields from scoring input.
+    """
+
+    text = (raw_text or "").strip()
+    if not text:
+        return []
+    ext = filename.split(".")[-1].lower() if filename else None
+    if ext == "csv" or (not ext and _looks_like_csv(text)):
+        return _parse_csv_text(text)
+    if ext == "jsonl" or (not ext and _looks_like_jsonl(text)):
+        return _parse_jsonl_text(text)
+    try:
+        return _parse_json_text(text)
+    except Exception:
+        try:
+            return _parse_jsonl_text(text)
+        except Exception:
+            return _parse_csv_text(text)
+
+
+def parse_source_record_documents(
+    documents: Sequence[tuple[str, str]],
+) -> list[dict[str, Any]]:
+    """Parse display-name source records from multiple uploaded documents."""
+
+    records: list[dict[str, Any]] = []
+    for filename, raw_text in documents:
+        if not (raw_text or "").strip():
+            continue
+        try:
+            records.extend(parse_source_records(raw_text, filename=filename))
+        except Exception:
+            continue
+    return records
+
+
 def _normalize_candidate(item: Any, index: int, is_csv: bool = False) -> dict[str, Any]:
     """Validate one raw candidate object and fill empty defaults.
 
@@ -314,8 +384,7 @@ def _normalize_candidate(item: Any, index: int, is_csv: bool = False) -> dict[st
             val = item.get(k)
             if isinstance(val, str) and val.strip():
                 val_stripped = val.strip()
-                if (val_stripped.startswith("{") and val_stripped.endswith("}")) or \
-                   (val_stripped.startswith("[") and val_stripped.endswith("]")):
+                if (val_stripped.startswith("{") and val_stripped.endswith("}")) or (val_stripped.startswith("[") and val_stripped.endswith("]")):
                     try:
                         item[k] = json.loads(val_stripped)
                     except Exception:
@@ -510,7 +579,6 @@ def transform_response_to_rows(
         confidence = result.get("confidence")
 
         explanation_available = candidate_id not in unavailable_ids
-
         rows.append(
             {
                 "raw_candidate_id": candidate_id,
@@ -727,6 +795,7 @@ def render(rank_client: Callable[[str, dict[str, Any]], dict[str, Any]] | None =
 
         /* Info / Warning / Error boxes */
         .stApp .stAlert p, .stApp .stAlert span {
+
             color: #1e293b !important;
         }
 
@@ -946,12 +1015,129 @@ def render(rank_client: Callable[[str, dict[str, Any]], dict[str, Any]] | None =
         .stApp [data-testid="stFileUploader"] section small {
             color: #64748b !important;
         }
-        .stApp [data-testid="stFileUploader"] *,
-        .stApp [data-testid="stFileUploader"] span,
-        .stApp [data-testid="stFileUploader"] div,
+        /* Uploaded file card styling across Streamlit uploader markup variants. */
+        .stFileUploaderFile,
+        [data-testid="stUploadedFile"],
+        [data-testid="stFileUploaderFile"],
+        [data-testid="stFileUploader"] [data-baseweb="tag"],
+        .stApp .stFileUploaderFile,
+        .stApp [data-testid="stUploadedFile"],
+        .stApp [data-testid="stFileUploaderFile"],
+        .stApp [data-testid="stFileUploader"] [data-baseweb="tag"],
+        .stApp [data-testid="stFileUploader"] [role="listitem"],
+        .stApp [data-testid="stFileUploader"] li,
+        [data-testid="stFileUploader"] [role="listitem"],
+        [data-testid="stFileUploader"] li {
+            background-color: #111827 !important;
+            border: 1px solid #334155 !important;
+            border-radius: 8px !important;
+            padding: 8px 12px !important;
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
+        }
+        .stApp [data-testid="stFileUploader"] [data-baseweb="tag"] > div,
+        .stApp [data-testid="stFileUploader"] [role="listitem"] > div,
+        [data-testid="stFileUploader"] [data-baseweb="tag"] > div,
+        [data-testid="stFileUploader"] [role="listitem"] > div {
+            background-color: transparent !important;
+        }
+        /* Specific element selectors to override Streamlit/BaseWeb chip colors. */
+        .stApp .stFileUploaderFile span,
+        .stApp [data-testid="stUploadedFile"] span,
+        .stApp [data-testid="stFileUploaderFile"] span,
+        .stApp [data-testid="stFileUploader"] [data-baseweb="tag"] span,
+        .stApp [data-testid="stFileUploader"] [data-baseweb="tag"] div,
+        .stApp [data-testid="stFileUploader"] [data-baseweb="tag"] p,
+        .stApp [data-testid="stFileUploader"] [data-baseweb="tag"] small,
+        .stApp [data-testid="stFileUploader"] [role="listitem"] span,
+        .stApp [data-testid="stFileUploader"] [role="listitem"] div,
+        .stApp [data-testid="stFileUploader"] [role="listitem"] p,
+        .stApp [data-testid="stFileUploader"] [role="listitem"] small,
+        .stApp [data-testid="stFileUploader"] li span,
+        .stApp .stFileUploaderFile div,
+        .stApp [data-testid="stUploadedFile"] div,
+        .stApp [data-testid="stFileUploaderFile"] div,
+        .stApp [data-testid="stFileUploader"] li div,
+        .stApp .stFileUploaderFile p,
+        .stApp [data-testid="stUploadedFile"] p,
+        .stApp [data-testid="stFileUploaderFile"] p,
+        .stApp [data-testid="stFileUploader"] li p,
+        .stApp .stFileUploaderFile small,
+        .stApp [data-testid="stUploadedFile"] small,
+        .stApp [data-testid="stFileUploaderFile"] small,
+        .stApp [data-testid="stFileUploader"] li small,
         .stApp [data-testid="stFileUploaderFileName"],
-        .stApp [data-testid="stUploadedFile"] * {
-            color: #1e293b !important;
+        .stApp [data-testid="stFileUploaderFileName"] span,
+        .stApp [data-testid="stFileUploaderFileSize"],
+        .stApp [data-testid="stFileUploaderFileSize"] span,
+        .stFileUploaderFile span,
+        [data-testid="stUploadedFile"] span,
+        [data-testid="stFileUploaderFile"] span,
+        [data-testid="stFileUploader"] [data-baseweb="tag"] span,
+        [data-testid="stFileUploader"] [data-baseweb="tag"] div,
+        [data-testid="stFileUploader"] [data-baseweb="tag"] p,
+        [data-testid="stFileUploader"] [data-baseweb="tag"] small,
+        [data-testid="stFileUploader"] [role="listitem"] span,
+        [data-testid="stFileUploader"] [role="listitem"] div,
+        [data-testid="stFileUploader"] [role="listitem"] p,
+        [data-testid="stFileUploader"] [role="listitem"] small,
+        [data-testid="stFileUploader"] li span,
+        .stFileUploaderFile div,
+        [data-testid="stUploadedFile"] div,
+        [data-testid="stFileUploaderFile"] div,
+        [data-testid="stFileUploader"] li div,
+        .stFileUploaderFile p,
+        [data-testid="stUploadedFile"] p,
+        [data-testid="stFileUploaderFile"] p,
+        [data-testid="stFileUploader"] li p,
+        .stFileUploaderFile small,
+        [data-testid="stUploadedFile"] small,
+        [data-testid="stFileUploaderFile"] small,
+        [data-testid="stFileUploader"] li small,
+        [data-testid="stFileUploaderFileName"],
+        [data-testid="stFileUploaderFileName"] span,
+        [data-testid="stFileUploaderFileSize"],
+        [data-testid="stFileUploaderFileSize"] span {
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
+        }
+        .stApp [data-testid="stFileUploaderFileName"],
+        .stApp [data-testid="stFileUploader"] [data-baseweb="tag"] span,
+        .stApp [data-testid="stFileUploader"] [role="listitem"] span {
+            max-width: min(58vw, 360px) !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+            white-space: nowrap !important;
+        }
+        .stFileUploaderFile svg,
+        [data-testid="stUploadedFile"] svg,
+        [data-testid="stFileUploaderFile"] svg,
+        [data-testid="stFileUploader"] [data-baseweb="tag"] svg,
+        [data-testid="stFileUploader"] [role="listitem"] svg,
+        .stApp .stFileUploaderFile svg,
+        .stApp [data-testid="stUploadedFile"] svg,
+        .stApp [data-testid="stFileUploaderFile"] svg,
+        .stApp [data-testid="stFileUploader"] [data-baseweb="tag"] svg,
+        .stApp [data-testid="stFileUploader"] [role="listitem"] svg,
+        .stApp [data-testid="stFileUploader"] li svg,
+        [data-testid="stFileUploader"] li svg {
+            color: #ffffff !important;
+            fill: #ffffff !important;
+        }
+        .stFileUploaderFile button,
+        [data-testid="stUploadedFile"] button,
+        [data-testid="stFileUploaderFile"] button,
+        .stApp .stFileUploaderFile button,
+        .stApp [data-testid="stUploadedFile"] button,
+        .stApp [data-testid="stFileUploaderFile"] button,
+        .stApp [data-testid="stFileUploader"] [data-baseweb="tag"] button,
+        .stApp [data-testid="stFileUploader"] [role="listitem"] button,
+        .stApp [data-testid="stFileUploader"] li button,
+        [data-testid="stFileUploader"] [data-baseweb="tag"] button,
+        [data-testid="stFileUploader"] [role="listitem"] button,
+        [data-testid="stFileUploader"] li button {
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
         }
         /* "Browse files" button inside file uploader */
         .stApp [data-testid="stFileUploader"] button,
@@ -967,6 +1153,52 @@ def render(rank_client: Callable[[str, dict[str, Any]], dict[str, Any]] | None =
             background-color: #e2e8f0 !important;
             color: #0f172a !important;
             border-color: #94a3b8 !important;
+        }
+        /* Final uploaded-file chip override: keep filename visible on Streamlit's dark chip. */
+        .stApp [data-testid="stFileUploader"] [data-testid="stUploadedFile"],
+        .stApp [data-testid="stFileUploader"] [data-testid="stFileUploaderFile"],
+        .stApp [data-testid="stFileUploader"] [data-baseweb="tag"],
+        .stApp [data-testid="stFileUploader"] [role="listitem"],
+        .stApp [data-testid="stFileUploader"] ul li {
+            background-color: #111827 !important;
+            border-color: #334155 !important;
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
+        }
+        .stApp [data-testid="stFileUploader"] [data-testid="stUploadedFile"] *,
+        .stApp [data-testid="stFileUploader"] [data-testid="stFileUploaderFile"] *,
+        .stApp [data-testid="stFileUploader"] [data-testid="stFileUploaderFileName"],
+        .stApp [data-testid="stFileUploader"] [data-testid="stFileUploaderFileName"] *,
+        .stApp [data-testid="stFileUploader"] [data-testid="stFileUploaderFileSize"],
+        .stApp [data-testid="stFileUploader"] [data-testid="stFileUploaderFileSize"] *,
+        .stApp [data-testid="stFileUploader"] [data-baseweb="tag"] *,
+        .stApp [data-testid="stFileUploader"] [role="listitem"] *,
+        .stApp [data-testid="stFileUploader"] ul li * {
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
+        }
+        .stApp .stFileUploader [data-testid="stUploadedFile"],
+        .stApp .stFileUploader [data-testid="stFileUploaderFile"],
+        .stApp .stFileUploader [data-baseweb="tag"],
+        .stApp .stFileUploader [role="listitem"],
+        .stApp .stFileUploader ul li {
+            background-color: #111827 !important;
+            border-color: #334155 !important;
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
+        }
+        .stApp .stFileUploader [data-testid="stUploadedFile"] *,
+        .stApp .stFileUploader [data-testid="stFileUploaderFile"] *,
+        .stApp .stFileUploader [data-testid="stFileUploaderFileName"],
+        .stApp .stFileUploader [data-testid="stFileUploaderFileName"] *,
+        .stApp .stFileUploader [data-testid="stFileUploaderFileSize"],
+        .stApp .stFileUploader [data-testid="stFileUploaderFileSize"] *,
+        .stApp .stFileUploader [data-baseweb="tag"] *,
+        .stApp .stFileUploader [role="listitem"] *,
+        .stApp .stFileUploader ul li * {
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
+            fill: #ffffff !important;
         }
 
         /* ── Sidebar caption (override global .stApp rules) ── */
@@ -1058,6 +1290,15 @@ def render(rank_client: Callable[[str, dict[str, Any]], dict[str, Any]] | None =
         .candidate-card-icon-warn {
             color: #f59e0b !important;
             font-weight: bold !important;
+        }
+
+        /* ── Form Submit Button (AI Recruiter Chat Send Button) ── */
+        .stApp [data-testid="stFormSubmitButton"] button,
+        .stApp [data-testid="stFormSubmitButton"] button p,
+        .stApp [data-testid="stFormSubmitButton"] button span,
+        .stApp [data-testid="stFormSubmitButton"] button div {
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
         }
         </style>
         """,
@@ -1263,6 +1504,9 @@ __all__ = [
     "BREAKDOWN_LABELS",
     "CandidatePoolError",
     "parse_candidate_pool",
+    "parse_candidate_pool_documents",
+    "parse_source_records",
+    "parse_source_record_documents",
     "build_rank_payload",
     "format_score",
     "confidence_label",

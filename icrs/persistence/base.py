@@ -25,6 +25,7 @@ dimensionality. Violations raise :class:`DimensionalityError`.
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
+from typing import Any
 from uuid import UUID
 
 from icrs.models.candidate import EnrichedProfile

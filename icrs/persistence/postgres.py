@@ -38,7 +38,7 @@ try:  # pragma: no cover - exercised only when the stack is installed
     from pgvector.sqlalchemy import Vector as PgVector
     from sqlalchemy import JSON, String, select
     from sqlalchemy.dialects.postgresql import UUID as PgUUID
-    from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
+    from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
     from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
     import asyncpg  # noqa: F401  (presence check: the async driver must be installed)

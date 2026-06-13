@@ -1,20 +1,16 @@
-import streamlit as st
 from typing import Any
 from icrs.ui.dashboard import (
     JOB_TYPE_VALUES,
-    DEFAULT_BACKEND_URL,
     CandidatePoolError,
     extract_text_from_file,
     parse_candidate_pool,
+    parse_candidate_pool_documents,
+    parse_source_records,
+    parse_source_record_documents,
     build_rank_payload,
     rank_via_api,
     transform_response_to_rows,
     _render_results,
-    _looks_like_csv,
-    _looks_like_jsonl,
-    _parse_csv_text,
-    _parse_jsonl_text,
-    _parse_json_text,
 )
 
 def render_candidate_ranking(
@@ -34,13 +30,25 @@ def render_candidate_ranking(
     jd_file = st.file_uploader("Upload a JD file (.docx / .pdf / .txt / .md)", type=["docx", "pdf", "txt", "md"], key="jd_file")
     
     if jd_file is not None:
-        jd_from_file = extract_text_from_file(jd_file)
-        if jd_from_file != st.session_state.raw_jd:
+        file_key = f"{jd_file.name}_{jd_file.size}"
+        if st.session_state.get("last_uploaded_jd_file_key_ranking") != file_key:
+            st.session_state.last_uploaded_jd_file_key_ranking = file_key
+            jd_from_file = extract_text_from_file(jd_file)
             st.session_state.raw_jd = jd_from_file
+            st.session_state.ranking_raw_jd = jd_from_file
+            if hasattr(st, "rerun"):
+                st.rerun()
+            else:
+                st.experimental_rerun()
+    else:
+        if "last_uploaded_jd_file_key_ranking" in st.session_state:
+            del st.session_state.last_uploaded_jd_file_key_ranking
     
+    if "ranking_raw_jd" not in st.session_state:
+        st.session_state.ranking_raw_jd = st.session_state.raw_jd
+        
     raw_jd = st.text_area(
         "...or paste the JD text",
-        value=st.session_state.raw_jd,
         height=200,
         placeholder="Paste the job description here.",
         key="ranking_raw_jd"
@@ -63,14 +71,21 @@ def render_candidate_ranking(
         "Provide a candidate pool as a JSON array, JSON Lines (JSONL), or CSV, "
         "supporting standard or Redrob schemas."
     )
-    pool_file = st.file_uploader(
-        "Upload a candidate pool (.json, .jsonl, .csv)",
+    pool_files = st.file_uploader(
+        "Upload candidate pool files or a folder (.json, .jsonl, .csv)",
         type=["json", "jsonl", "csv"],
         key="pool_file",
+        accept_multiple_files=True,
     )
+    uploaded_documents = []
+    if pool_files:
+        uploaded_documents = [
+            (uploaded_file.name, uploaded_file.getvalue().decode("utf-8", errors="replace"))
+            for uploaded_file in pool_files
+        ]
     pool_from_file = ""
-    if pool_file is not None:
-        pool_from_file = pool_file.getvalue().decode("utf-8", errors="replace")
+    if len(uploaded_documents) == 1:
+        pool_from_file = uploaded_documents[0][1]
     pool_text = st.text_area(
         "...or paste candidate-pool (JSON, JSONL, or CSV)",
         value=pool_from_file,
@@ -84,7 +99,10 @@ def render_candidate_ranking(
     # --- Trigger ranking -----------------------------------------------------
     if st.button("Rank candidates", type="primary"):
         try:
-            candidates = parse_candidate_pool(pool_text, filename=pool_file.name if pool_file else None)
+            if uploaded_documents:
+                candidates = parse_candidate_pool_documents(uploaded_documents)
+            else:
+                candidates = parse_candidate_pool(pool_text)
         except CandidatePoolError as exc:
             st.error(str(exc))
             return
@@ -92,23 +110,13 @@ def render_candidate_ranking(
         # Generate deterministic UUIDs and names in UI scope only
         import uuid
         raw_records = []
-        try:
-            filename = pool_file.name if pool_file else None
-            ext = filename.split(".")[-1].lower() if filename else None
-            if ext == "csv" or (not ext and _looks_like_csv(pool_text)):
-                raw_records = _parse_csv_text(pool_text)
-            elif ext == "jsonl" or (not ext and _looks_like_jsonl(pool_text)):
-                raw_records = _parse_jsonl_text(pool_text)
-            else:
-                try:
-                    raw_records = _parse_json_text(pool_text)
-                except Exception:
-                    try:
-                        raw_records = _parse_jsonl_text(pool_text)
-                    except Exception:
-                        raw_records = _parse_csv_text(pool_text)
-        except Exception:
-            pass
+        if uploaded_documents:
+            raw_records = parse_source_record_documents(uploaded_documents)
+        else:
+            try:
+                raw_records = parse_source_records(pool_text)
+            except Exception:
+                raw_records = []
 
         uuid_to_name = {}
         for index, c in enumerate(candidates):

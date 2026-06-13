@@ -47,7 +47,6 @@ from typing import TYPE_CHECKING, Any
 
 from icrs.models.candidate import EnrichedProfile
 from icrs.models.job import (
-    Requirement,
     RequirementCategory,
     RequirementVector,
 )

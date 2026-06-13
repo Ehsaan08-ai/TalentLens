@@ -72,11 +72,25 @@ Secrets are read from the environment only and are never hardcoded. Copy
 | `ICRS_EMBEDDING_MODEL` | no | `BAAI/bge-large-en-v1.5` | Embedding model id |
 | `ICRS_EMBEDDING_DIM` | no | `1024` | Embedding dimensionality |
 | `ICRS_EMBEDDING_DEVICE` | no | `cpu` | Embedding device (`cpu`/`cuda`) |
+| `ICRS_MODEL_CACHE_DIR` | no | `.cache/huggingface` | Local model download/cache directory inside the project |
 | `ICRS_MAX_INPUT_TOKENS` | no | `512` | Token limit before chunking |
 | `ICRS_RERANK_K` | no | `10` | Rerank bound K (1..50) |
+| `ICRS_EXPLAIN_TOP_N` | no | `5` | Number of top-ranked candidates to generate full LLM explanations for |
+| `ICRS_ENRICHMENT_MODE` | no | `local` | `local` avoids per-resume LLM calls; set `llm` for slower, high-fidelity enrichment |
 | `ICRS_DATABASE_URL` | no | local Postgres | PostgreSQL + pgvector DSN |
 | `ICRS_QDRANT_URL` | no | `http://localhost:6333` | Qdrant URL |
 | `ICRS_RANDOM_SEED` | no | `1729` | Fixed seed for deterministic stages |
+
+## Free-tier performance mode
+
+The default app is tuned for no-cost hackathon runs:
+
+- all candidates use deterministic local semantic enrichment (`ICRS_ENRICHMENT_MODE=local`), avoiding one LLM call per resume;
+- the LLM reranker only sees the top `ICRS_RERANK_K` candidates;
+- full LLM explanations are generated only for the top `ICRS_EXPLAIN_TOP_N` candidates.
+
+For smaller pools where latency and free-tier limits are not a concern, set
+`ICRS_ENRICHMENT_MODE=llm` to restore the original per-candidate LLM enrichment.
 
 ## Running tests
 
@@ -87,6 +101,19 @@ pytest
 Hypothesis uses a deterministic profile (`icrs-deterministic`, fixed seed) by
 default so the deterministic pipeline stages are reproducible. Override with
 `HYPOTHESIS_PROFILE=icrs-fast` for quicker local runs.
+
+## Creating the challenge submission CSV
+
+The hackathon validator expects exactly:
+
+```csv
+candidate_id,rank,score,reasoning
+```
+
+Use `icrs.output.challenge_submission.write_submission_csv` after ranking to map
+the API's internal UUIDs back to the source `CAND_XXXXXXX` ids and write a
+top-100 CSV. The exporter sorts equal scores by `candidate_id`, assigns ranks
+1–100, and is covered by the provided validator.
 
 ## Running the PoC dashboard
 

@@ -1,9 +1,8 @@
-import streamlit as st
 from typing import Any
+
 from icrs.ui.dashboard import (
-    transform_response_to_rows,
     format_score,
-    BREAKDOWN_LABELS,
+    transform_response_to_rows,
 )
 
 def render_explainability(st: Any) -> None:
@@ -191,13 +190,12 @@ def render_explainability(st: Any) -> None:
             </div>
         """
 
-        st.markdown(
+        st.html(
             f"""
             <div class="glass-card" style="padding: 20px;">
                 {bars_html}
             </div>
-            """,
-            unsafe_allow_html=True
+            """
         )
 
         # ── Explanation Availability Notice ──

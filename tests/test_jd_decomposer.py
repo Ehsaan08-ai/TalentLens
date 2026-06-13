@@ -18,7 +18,7 @@ import json
 
 import pytest
 
-from icrs.models.job import RequirementCategory, SeniorityBand
+from icrs.models.job import SeniorityBand
 from icrs.pipeline.jd_decomposer import (
     JDDecomposer,
     JDDecompositionError,

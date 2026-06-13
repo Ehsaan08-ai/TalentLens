@@ -131,6 +131,8 @@ def create_app(
     app.state.orchestrator = orchestrator
     app.state.orchestrator_factory = orchestrator_factory
     app.state.settings = settings
+    app.state.rank_cache = {}
+    app.state.decompose_cache = {}
 
     def get_orchestrator() -> RankingOrchestrator:
         """Return the shared orchestrator, building it lazily on first use."""
@@ -198,13 +200,24 @@ def create_app(
             except Exception as e:
                 print(f"WARNING: Redis get error: {e}")
 
-        # 3. Check Postgres Database Cache
+        # 3. Check local process cache. This keeps the PoC cache useful even
+        # when Redis/Postgres are not running on a judge or demo laptop.
+        local_rank_cache = getattr(request.app.state, "rank_cache", None)
+        if isinstance(local_rank_cache, dict):
+            cached_response = local_rank_cache.get(payload_hash)
+            if cached_response:
+                print(f"Local Cache Hit for key {redis_key}")
+                return RankResponse.model_validate(cached_response)
+
+        # 4. Check Postgres Database Cache
         postgres_store = getattr(request.app.state, "postgres_store", None)
         if postgres_store:
             try:
                 db_response = await postgres_store.get_ranking_run(payload_hash)
                 if db_response:
                     print(f"Database Cache Hit for key {redis_key}")
+                    if isinstance(local_rank_cache, dict):
+                        local_rank_cache[payload_hash] = db_response
                     # Cache back to Redis
                     if redis_client:
                         try:
@@ -220,7 +233,7 @@ def create_app(
             except Exception as e:
                 print(f"WARNING: Database lookup error: {e}")
 
-        # 4. Cache Miss: Run Orchestrator Pipeline
+        # 5. Cache Miss: Run Orchestrator Pipeline
         print(f"Cache Miss for key {redis_key} - running ranking orchestrator")
         pool = []
         for c in payload.candidates:
@@ -257,14 +270,18 @@ def create_app(
         response = RankResponse.from_run(run)
         response_dict = response.model_dump(mode="json")
 
-        # 5. Save to Postgres Database
+        # 6. Save to local process cache
+        if isinstance(local_rank_cache, dict):
+            local_rank_cache[payload_hash] = response_dict
+
+        # 7. Save to Postgres Database
         if postgres_store:
             try:
                 await postgres_store.save_ranking_run(payload_hash, response_dict)
             except Exception as e:
                 print(f"WARNING: Database save error: {e}")
 
-        # 6. Save to Redis Cache
+        # 8. Save to Redis Cache
         if redis_client:
             try:
                 current_settings = request.app.state.settings or get_settings()
@@ -281,6 +298,7 @@ def create_app(
     @app.post("/decompose-jd", response_model=DecomposeJDResponse)
     async def decompose_jd(
         payload: DecomposeJDRequest,
+        request: Request,
         orchestrator: RankingOrchestrator = Depends(get_orchestrator),
     ) -> DecomposeJDResponse:
         """Decompose a raw JD into intent, must-haves, nice-to-haves, and behavioral signals."""
@@ -289,12 +307,36 @@ def create_app(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="raw_jd must contain at least one non-whitespace character",
             )
+        import hashlib
+        import json
+
+        normalized_jd = payload.raw_jd.strip()
+        payload_hash = hashlib.sha256(normalized_jd.encode("utf-8")).hexdigest()
+        redis_key = f"icrs:decompose:{payload_hash}"
+
+        redis_client = getattr(request.app.state, "redis_client", None)
+        if redis_client:
+            try:
+                cached_response = await redis_client.get(redis_key)
+                if cached_response:
+                    print(f"Redis Cache Hit for key {redis_key}")
+                    return DecomposeJDResponse.model_validate_json(cached_response)
+            except Exception as e:
+                print(f"WARNING: Redis get error: {e}")
+
+        local_decompose_cache = getattr(request.app.state, "decompose_cache", None)
+        if isinstance(local_decompose_cache, dict):
+            cached_response = local_decompose_cache.get(payload_hash)
+            if cached_response:
+                print(f"Local Cache Hit for key {redis_key}")
+                return DecomposeJDResponse.model_validate(cached_response)
+
         try:
             from fastapi.concurrency import run_in_threadpool
 
             # Use the public decompose_jd method instead of reaching into
             # the private _decomposer attribute — preserves layering contract.
-            vector = await run_in_threadpool(orchestrator.decompose_jd, payload.raw_jd)
+            vector = await run_in_threadpool(orchestrator.decompose_jd, normalized_jd)
 
             must_have = []
             nice_to_have = []
@@ -317,12 +359,26 @@ def create_app(
                 if cult not in behavioral_signals:
                     behavioral_signals.append(cult)
 
-            return DecomposeJDResponse(
+            response = DecomposeJDResponse(
                 role_intent=vector.role_intent,
                 must_have=must_have,
                 nice_to_have=nice_to_have,
                 behavioral_signals=behavioral_signals,
             )
+            response_dict = response.model_dump(mode="json")
+            if isinstance(local_decompose_cache, dict):
+                local_decompose_cache[payload_hash] = response_dict
+            if redis_client:
+                try:
+                    current_settings = request.app.state.settings or get_settings()
+                    await redis_client.setex(
+                        redis_key,
+                        current_settings.redis_ttl,
+                        json.dumps(response_dict),
+                    )
+                except Exception as e:
+                    print(f"WARNING: Redis set error: {e}")
+            return response
         except Exception as exc:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,

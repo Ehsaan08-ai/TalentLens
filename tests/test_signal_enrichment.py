@@ -369,6 +369,25 @@ def test_enrich_resolves_provider_from_registry() -> None:
     assert len(stub.calls) == 1
 
 
+def test_local_semantic_enrichment_makes_no_llm_call() -> None:
+    stub = StubLLM([json.dumps(_semantic_payload())])
+    enricher = CandidateEnricher(llm_provider=stub, semantic_mode="local")
+
+    enriched = enricher.enrich(_profile())
+
+    assert len(stub.calls) == 0
+    assert enriched.inferred_responsibilities
+    assert "backend development" in enriched.implicit_skills
+    assert enriched.trajectory_arc is TrajectoryArc.ACCELERATING
+    assert enriched.depth_breadth is not None
+    assert enriched.signal_availability[SignalTier.SEMANTIC] > 0.0
+
+
+def test_invalid_semantic_mode_rejected() -> None:
+    with pytest.raises(ValueError):
+        CandidateEnricher(semantic_mode="expensive-but-mysterious")
+
+
 def test_enrich_without_provider_raises() -> None:
     enricher = CandidateEnricher()  # no provider configured
     with pytest.raises(EnrichmentError):

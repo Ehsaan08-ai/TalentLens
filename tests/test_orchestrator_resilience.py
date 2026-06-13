@@ -45,7 +45,6 @@ from icrs.pipeline.orchestrator import (
 from icrs.pipeline.reranker import RerankError, Reranker
 from icrs.providers.base import (
     EmbeddingProvider,
-    LLMMessage,
     LLMProvider,
     LLMResponse,
     Vector,

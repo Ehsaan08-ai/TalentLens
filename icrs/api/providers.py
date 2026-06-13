@@ -19,6 +19,8 @@ IMPORTANT — no real API at import time:
 
 from __future__ import annotations
 
+import os
+from pathlib import Path
 from typing import Sequence
 
 from icrs.config import Settings, get_settings
@@ -308,12 +310,35 @@ class LocalEmbeddingProvider(EmbeddingProvider):
     and touches no network.
     """
 
-    def __init__(self, *, model: str, dim: int, device: str, max_tokens: int) -> None:
+    def __init__(
+        self,
+        *,
+        model: str,
+        dim: int,
+        device: str,
+        max_tokens: int,
+        cache_dir: str | None = None,
+    ) -> None:
         self._model_id = model
         self._dim = dim
         self._device = device
         self._max_tokens = max_tokens
+        self._cache_dir = self._resolve_cache_dir(cache_dir)
         self._model = None  # loaded lazily
+
+    @staticmethod
+    def _resolve_cache_dir(cache_dir: str | None) -> Path:
+        root = Path(cache_dir or ".cache/huggingface").expanduser()
+        if not root.is_absolute():
+            root = Path(__file__).resolve().parents[2] / root
+        return root
+
+    def _configure_cache_env(self) -> None:
+        self._cache_dir.mkdir(parents=True, exist_ok=True)
+        os.environ.setdefault("HF_HOME", str(self._cache_dir))
+        os.environ.setdefault("HF_HUB_CACHE", str(self._cache_dir / "hub"))
+        os.environ.setdefault("SENTENCE_TRANSFORMERS_HOME", str(self._cache_dir / "sentence-transformers"))
+        os.environ.setdefault("TRANSFORMERS_CACHE", str(self._cache_dir / "transformers"))
 
     @property
     def model_id(self) -> str:
@@ -329,9 +354,14 @@ class LocalEmbeddingProvider(EmbeddingProvider):
 
     def _ensure_model(self):
         if self._model is None:
+            self._configure_cache_env()
             from sentence_transformers import SentenceTransformer
 
-            self._model = SentenceTransformer(self._model_id, device=self._device)
+            self._model = SentenceTransformer(
+                self._model_id,
+                device=self._device,
+                cache_folder=str(self._cache_dir / "sentence-transformers"),
+            )
         return self._model
 
     def embed(self, text: str) -> Vector:
@@ -404,14 +434,16 @@ def build_default_orchestrator(settings: Settings | None = None):
         dim=settings.embedding_dim,
         device=settings.embedding_device,
         max_tokens=settings.max_input_tokens,
+        cache_dir=settings.model_cache_dir,
     )
 
     return RankingOrchestrator(
         decomposer=JDDecomposer(registry),
-        enricher=CandidateEnricher(registry),
+        enricher=CandidateEnricher(registry, semantic_mode=settings.enrichment_mode),
         embedder=EmbeddingGenerator(embedding_provider),
         reranker=Reranker(registry, k=settings.rerank_k),
         explainer=ExplanationGenerator(registry),
+        explain_top_n=settings.explain_top_n,
     )
 
 

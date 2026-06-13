@@ -63,6 +63,7 @@ class CandidateEnricher(ProfileNormalizationMixin, EnrichmentMixin):
             DEFAULT_BEHAVIORAL_FETCH_TIMEOUT_SECONDS
         ),
         task: LLMTask = LLMTask.ENRICH,
+        semantic_mode: str = "llm",
     ) -> None:
         """Construct an enricher.
 
@@ -82,14 +83,21 @@ class CandidateEnricher(ProfileNormalizationMixin, EnrichmentMixin):
                 ``None`` to disable the timeout entirely.
             task: the :class:`LLMTask` used to resolve the provider from the
                 registry. Defaults to :attr:`LLMTask.ENRICH`.
+            semantic_mode: ``"llm"`` performs the original per-candidate LLM
+                semantic enrichment. ``"local"`` uses deterministic heuristics
+                instead, which is much faster for free-tier bulk ranking.
 
         Constructing with no arguments is supported and keeps :meth:`normalize`
         fully usable; only :meth:`enrich` requires an LLM provider.
         """
 
+        if semantic_mode not in {"llm", "local"}:
+            raise ValueError("semantic_mode must be either 'llm' or 'local'")
+
         self._enrich_registry = registry
         self._enrich_provider = llm_provider
         self._enrich_task = task
+        self._semantic_mode = semantic_mode
         self._behavioral_source: BehavioralSignalSource = (
             behavioral_source or NullBehavioralSignalSource()
         )

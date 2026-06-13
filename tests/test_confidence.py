@@ -16,7 +16,6 @@ directions Requirement 5.5 demands (Correctness Property 9).
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Any
 
 import pytest
 from hypothesis import given

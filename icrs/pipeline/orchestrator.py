@@ -96,6 +96,11 @@ EXPLANATION_UNAVAILABLE_SUMMARY = (
     "rationale for this candidate. The score and signal breakdown remain valid."
 )
 
+EXPLANATION_SKIPPED_SUMMARY = (
+    "Explanation skipped for this candidate to keep large-pool ranking fast. "
+    "The score, rank, confidence, and signal breakdown remain valid."
+)
+
 
 # --------------------------------------------------------------------------- #
 # Typed errors
@@ -266,6 +271,7 @@ class RankingOrchestrator:
         store: object | None = None,
         embed_max_attempts: int = DEFAULT_EMBED_MAX_ATTEMPTS,
         embed_backoff_base_seconds: float = DEFAULT_EMBED_BACKOFF_BASE_SECONDS,
+        explain_top_n: int | None = 10,
         sleep: Callable[[float], None] | None = None,
     ) -> None:
         self._decomposer = decomposer
@@ -278,6 +284,7 @@ class RankingOrchestrator:
         self._embed_max_attempts = max(1, int(embed_max_attempts))
         self._embed_backoff_base_seconds = max(0.0, float(embed_backoff_base_seconds))
         self._sleep: Callable[[float], None] = sleep or time.sleep
+        self._explain_top_n = None if explain_top_n is None else max(0, int(explain_top_n))
         # Content-hash keyed embedding cache: a cached vector is reused instead
         # of retrying a failed embedding call (Requirement 9.2).
         self._embedding_cache: dict[str, Vector] = {}
@@ -522,7 +529,9 @@ class RankingOrchestrator:
     def _embedding_cache_key(profile: EnrichedProfile) -> str:
         """Stable content hash of the enriched profile (excluding its embedding)."""
 
-        payload = profile.model_dump_json(exclude={"embedding"})
+        payload = profile.model_dump_json(
+            exclude={"embedding": True, "id": True, "base": {"id": True}}
+        )
         return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
     # ------------------------------------------------------------------ #
@@ -699,6 +708,8 @@ class RankingOrchestrator:
         results: list[RankingResult] = []
         explanation_unavailable_ids: list[object] = []
 
+        explain_limit = self._explain_top_n
+
         def get_single_explanation(c: ScoredCandidate) -> tuple[ScoredCandidate, Explanation, bool]:
             try:
                 exp = self._explainer.explain(c.profile, reqs, c.breakdown)
@@ -707,29 +718,49 @@ class RankingOrchestrator:
                 # Requirement 9.5: mark unavailable without fabricating content.
                 return c, self._unavailable_explanation(), False
 
-        # Run concurrent LLM calls
-        max_workers = min(len(ordered), 10) if ordered else 1
+        if explain_limit is None:
+            to_explain = ordered
+            skipped_candidates: list[ScoredCandidate] = []
+        elif explain_limit == 0:
+            to_explain = []
+            skipped_candidates = list(ordered)
+        else:
+            to_explain = ordered[:explain_limit]
+            skipped_candidates = ordered[explain_limit:]
+
+        skipped = {c.id_str: c for c in skipped_candidates}
+        explanations_by_id: dict[str, tuple[Explanation, bool]] = {
+            cid: (self._skipped_explanation(), False) for cid in skipped
+        }
+
+        # Run concurrent LLM calls only for the explainable prefix. Large pools
+        # still get full ranking, but do not spend API quota on every rationale.
+        max_workers = min(len(to_explain), 10) if to_explain else 1
         with ThreadPoolExecutor(max_workers=max_workers) as executor:
             # Submit in original order
-            futures = [executor.submit(get_single_explanation, c) for c in ordered]
-            
-            # Resolve in original order (preserves ranks 1..N)
-            for rank, future in enumerate(futures, start=1):
+            futures = [executor.submit(get_single_explanation, c) for c in to_explain]
+
+            for future in futures:
                 c, explanation, success = future.result()
-                if not success:
-                    explanation_unavailable_ids.append(c.profile.id)
-                confidence = compute_confidence_for(c, ordered)
-                results.append(
-                    RankingResult(
-                        job_id=reqs.job_id,
-                        candidate_id=c.profile.id,
-                        final_score=c.final_score,
-                        rank=rank,
-                        breakdown=c.breakdown,
-                        explanation=explanation,
-                        confidence=confidence,
-                    )
+                explanations_by_id[c.id_str] = (explanation, success)
+
+        # Resolve in final rank order (preserves ranks 1..N).
+        for rank, c in enumerate(ordered, start=1):
+            explanation, success = explanations_by_id[c.id_str]
+            if not success:
+                explanation_unavailable_ids.append(c.profile.id)
+            confidence = compute_confidence_for(c, ordered)
+            results.append(
+                RankingResult(
+                    job_id=reqs.job_id,
+                    candidate_id=c.profile.id,
+                    final_score=c.final_score,
+                    rank=rank,
+                    breakdown=c.breakdown,
+                    explanation=explanation,
+                    confidence=confidence,
                 )
+            )
 
         return results, explanation_unavailable_ids
 
@@ -749,6 +780,17 @@ class RankingOrchestrator:
             unmet_must_haves=[],
         )
 
+    @staticmethod
+    def _skipped_explanation() -> Explanation:
+        """Build the honest large-pool explanation-skip sentinel."""
+
+        return Explanation(
+            summary=EXPLANATION_SKIPPED_SUMMARY,
+            driving_signals=[],
+            gaps=[],
+            unmet_must_haves=[],
+        )
+
 
 __all__ = [
     "RankingOrchestrator",
@@ -757,4 +799,5 @@ __all__ = [
     "InvalidRankingInputError",
     "EmbeddingUnavailableError",
     "EXPLANATION_UNAVAILABLE_SUMMARY",
+    "EXPLANATION_SKIPPED_SUMMARY",
 ]

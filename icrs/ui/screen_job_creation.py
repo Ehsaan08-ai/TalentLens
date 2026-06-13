@@ -1,5 +1,4 @@
 import html
-import streamlit as st
 from typing import Any
 from icrs.ui.dashboard import JOB_TYPE_VALUES, decompose_via_api, extract_text_from_file
 
@@ -27,21 +26,30 @@ def render_job_creation(st: Any, base_url: str) -> None:
         jd_file = st.file_uploader("Upload a JD file (.docx / .pdf / .txt / .md)", type=["docx", "pdf", "txt", "md"], key="jc_jd_file")
         
         if jd_file is not None:
-            jd_from_file = extract_text_from_file(jd_file)
-            if jd_from_file != st.session_state.raw_jd:
+            file_key = f"{jd_file.name}_{jd_file.size}"
+            if st.session_state.get("last_uploaded_jd_file_key") != file_key:
+                st.session_state.last_uploaded_jd_file_key = file_key
+                jd_from_file = extract_text_from_file(jd_file)
                 st.session_state.raw_jd = jd_from_file
+                st.session_state.jc_raw_jd = jd_from_file
                 if hasattr(st, "rerun"):
                     st.rerun()
                 else:
                     st.experimental_rerun()
+        else:
+            if "last_uploaded_jd_file_key" in st.session_state:
+                del st.session_state.last_uploaded_jd_file_key
         
+        if "jc_raw_jd" not in st.session_state:
+            st.session_state.jc_raw_jd = st.session_state.raw_jd
+            
         raw_jd = st.text_area(
             "Job Description",
-            value=st.session_state.raw_jd,
             height=250,
             placeholder="Paste the job description here.",
             key="jc_raw_jd"
         )
+        st.session_state.raw_jd = raw_jd
 
         if st.button("Analyze Job", type="primary", use_container_width=True):
             if not raw_jd.strip():
@@ -169,4 +177,5 @@ def render_job_creation(st: Any, base_url: str) -> None:
         if st.session_state.analysis_results is not None:
             if st.button("Publish & Find Candidates", type="primary", use_container_width=True):
                 st.session_state.navigation_page = "Candidate Ranking & Match"
+                st.session_state._navigation_source = "button"
                 st.rerun()

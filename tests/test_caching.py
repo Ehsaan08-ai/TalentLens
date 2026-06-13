@@ -2,11 +2,10 @@ import json
 import hashlib
 import pytest
 from unittest.mock import MagicMock, AsyncMock
-from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
 from icrs.api.app import create_app
-from icrs.api.schemas import RankResponse
+from icrs.models.job import Requirement, RequirementCategory, RequirementTier, RequirementVector, SeniorityBand
 from icrs.pipeline.orchestrator import RankingOrchestrator, RankingRun
 from icrs.persistence.memory import InMemoryRankingStore
 
@@ -232,3 +231,50 @@ def test_graceful_degradation_when_caches_throw_errors(client, test_app, mock_or
 
     # Verify orchestrator was called successfully
     mock_orchestrator.rank_candidates_run.assert_called_once()
+
+
+def test_local_rank_cache_works_without_external_cache(mock_orchestrator):
+    app = create_app(orchestrator=mock_orchestrator)
+    app.state.redis_client = None
+    app.state.postgres_store = None
+    client = TestClient(app)
+
+    payload = _payload()
+
+    first = client.post("/rank", json=payload)
+    second = client.post("/rank", json=payload)
+
+    assert first.status_code == 200
+    assert second.status_code == 200
+    mock_orchestrator.rank_candidates_run.assert_called_once()
+
+
+def test_decompose_jd_uses_local_cache_when_available():
+    orchestrator = MagicMock(spec=RankingOrchestrator)
+    orchestrator.decompose_jd.return_value = RequirementVector(
+        role_intent="Build APIs",
+        seniority_band=SeniorityBand.SENIOR,
+        requirements=[
+            Requirement(
+                text="Python",
+                category=RequirementCategory.MUST_HAVE,
+                tier=RequirementTier.STRUCTURAL,
+                weight=1.0,
+            )
+        ],
+        implicit_expectations=["ownership"],
+        culture_signals=[],
+    )
+    app = create_app(orchestrator=orchestrator)
+    app.state.redis_client = None
+    client = TestClient(app)
+
+    payload = {"raw_jd": " Need Python API engineer "}
+
+    first = client.post("/decompose-jd", json=payload)
+    second = client.post("/decompose-jd", json=payload)
+
+    assert first.status_code == 200
+    assert second.status_code == 200
+    assert second.json() == first.json()
+    orchestrator.decompose_jd.assert_called_once_with("Need Python API engineer")

@@ -14,6 +14,7 @@ real database provides (objects are re-materialized from rows on read).
 from __future__ import annotations
 
 import asyncio
+from typing import Any
 from uuid import UUID
 
 from icrs.config import get_settings
@@ -102,11 +103,13 @@ class InMemoryRankingStore(RankingStore):
 
     async def save_ranking_run(self, run_id: str, document: dict[str, Any]) -> None:
         import copy
+
         async with self._lock:
             self._ranking_runs[run_id] = copy.deepcopy(document)
 
     async def get_ranking_run(self, run_id: str) -> dict[str, Any] | None:
         import copy
+
         async with self._lock:
             stored = self._ranking_runs.get(run_id)
             return copy.deepcopy(stored) if stored is not None else None

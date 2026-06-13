@@ -39,7 +39,7 @@ from collections.abc import Iterable, Sequence
 from rank_bm25 import BM25Plus
 
 from icrs.models.candidate import EnrichedProfile
-from icrs.models.job import Requirement, RequirementVector
+from icrs.models.job import RequirementVector
 from icrs.providers.base import Vector, VectorMatch, VectorStore
 
 # ----- blend weights (design: dense-favored semantic fit) -------------------

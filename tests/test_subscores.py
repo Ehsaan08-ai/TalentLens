@@ -300,7 +300,6 @@ def test_hard_filter_pass_zero_satisfaction() -> None:
 def test_hard_filter_pass_no_must_haves_is_one() -> None:
     # A vector with no MUST_HAVE requires using NICE_TO_HAVE only; build it via
     # the matcher contract directly since RequirementVector requires a MUST_HAVE.
-    reqs = _reqs(must_haves=["anything"])
     # Override: simulate "no must-haves" by clearing them post hoc is invalid;
     # instead assert the documented no-must-have branch via a custom vector.
     empty_must = RequirementVector(
@@ -462,7 +461,7 @@ def test_hard_filter_pass_always_in_unit_interval(must_have_count, skills) -> No
 
 
 @given(expired_count=st.integers(min_value=0, max_value=12))
-def test_penalty_always_in_unit_interval(expired_count) -> None:
+def test_penalty_property_always_in_unit_interval(expired_count) -> None:
     cand = _cand(certs=[f"cert {i} expired" for i in range(expired_count)])
     penalty = disqualifying_flag_penalty(_reqs(), cand)
     assert 0.0 <= penalty <= 1.0

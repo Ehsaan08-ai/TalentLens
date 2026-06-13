@@ -58,11 +58,10 @@ from collections.abc import Callable, Iterator
 from dataclasses import dataclass
 from enum import Enum
 
-from icrs.models.candidate import BehavioralSignal, EnrichedProfile, Role
+from icrs.models.candidate import EnrichedProfile, Role
 from icrs.models.enums import DepthBreadth, SignalTier, TrajectoryArc
 from icrs.models.job import (
     Requirement,
-    RequirementCategory,
     RequirementVector,
     SeniorityBand,
 )

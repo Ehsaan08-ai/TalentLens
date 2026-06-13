@@ -53,6 +53,8 @@ def test_default_settings_have_free_provider_defaults() -> None:
     assert cfg.groq_model == "llama-3.3-70b-versatile"
     assert cfg.openrouter_model == "google/gemini-2.5-flash:free"
     assert cfg.gemini_model == "gemini-2.5-flash"
+    assert cfg.enrichment_mode == "local"
+    assert cfg.explain_top_n == 5
     # No secrets baked in.
     assert cfg.groq_api_key is None
     assert cfg.google_api_key is None
@@ -76,6 +78,11 @@ def test_rerank_k_must_be_in_bounds() -> None:
         Settings(_env_file=None, rerank_k=0)
     with pytest.raises(ValueError):
         Settings(_env_file=None, rerank_k=51)
+
+
+def test_enrichment_mode_must_be_known() -> None:
+    with pytest.raises(ValueError):
+        Settings(_env_file=None, enrichment_mode="magic")
 
 
 def test_embedding_dim_must_be_positive() -> None:

@@ -19,6 +19,7 @@ configuration that selects and parameterizes them.
 from __future__ import annotations
 
 from functools import lru_cache
+from typing import Literal
 
 from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -66,10 +67,15 @@ class Settings(BaseSettings):
     embedding_model: str = "BAAI/bge-large-en-v1.5"
     embedding_dim: int = 1024
     embedding_device: str = "cpu"
+    model_cache_dir: str = ".cache/huggingface"
 
     # ----- Pipeline limits -----
     max_input_tokens: int = 512
     rerank_k: int = 10
+    explain_top_n: int = 5
+    # Local mode avoids one LLM call per candidate; use "llm" only for smaller,
+    # higher-fidelity runs where latency/rate limits are acceptable.
+    enrichment_mode: Literal["local", "llm"] = "local"
 
     # Groq free-tier rate-limit resilience: retry a 429'd call this many times,
     # honoring the server's retry-after, before giving up.
@@ -101,6 +107,13 @@ class Settings(BaseSettings):
     def _k_in_bounds(cls, value: int) -> int:
         if not (K_MIN <= value <= K_MAX):
             raise ValueError(f"rerank_k must be within [{K_MIN}, {K_MAX}], got {value}")
+        return value
+
+    @field_validator("explain_top_n")
+    @classmethod
+    def _explain_top_n_non_negative(cls, value: int) -> int:
+        if value < 0:
+            raise ValueError("explain_top_n must be a non-negative integer")
         return value
 
 
